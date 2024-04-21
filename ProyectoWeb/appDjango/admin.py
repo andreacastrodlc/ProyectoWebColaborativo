@@ -8,9 +8,9 @@
 
 from django.contrib import admin
 
-from appEmpresaDjango.models import Pedido, Productos, Componente
+from appDjango.models import Pedido, Producto, Componente
 
 # Register your models here.
 admin.site.register(Pedido)
-admin.site.register(Productos)
+admin.site.register(Producto)
 admin.site.register(Componente)
