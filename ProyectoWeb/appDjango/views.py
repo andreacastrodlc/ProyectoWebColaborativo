@@ -12,7 +12,7 @@ def index(request):
     #output = ', '.join([d.marca_componente for d in componentes])
     context = {'lista_componentes': componentes}
     #return HttpResponse(output) #primera vista de prueba que muestra las marcas de todos los componentes separados por comas
-    return render(request, 'componente.html', context)
+    return render(request, 'base.html', context)
 
 def componente(request, referencia_componente):
     componentes = Componente.objects.get(pk=referencia_componente)
