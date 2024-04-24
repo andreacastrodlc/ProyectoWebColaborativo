@@ -1,19 +1,44 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, View
+
+from appDjango.forms import ProductoForm
 
 # Create your views here.
 
 from django.http import HttpResponse
 
-from appDjango.models import Componente
+from appDjango.models import  Producto
 
 
-def index(request):
-    componentes = Componente.objects.order_by('marca_componente')
-    #output = ', '.join([d.marca_componente for d in componentes])
-    context = {'lista_componentes': componentes}
-    #return HttpResponse(output) #primera vista de prueba que muestra las marcas de todos los componentes separados por comas
+def index_productos(request):
+    productos = Producto.objects.order_by('referencia_producto')
+    context = {'lista_productos': productos}
     return render(request, 'base.html', context)
 
-def componente(request, referencia_componente):
-    componentes = Componente.objects.get(pk=referencia_componente)
-    return HttpResponse(componentes)
+class ProductoListView(ListView):
+    model = Producto
+    template_name = "appDjango/producto_index.html"
+    context_object_name = "productos"
+
+def show_producto(request, referencia_producto):
+    producto = get_object_or_404(Producto, id=referencia_producto)
+    return render(request, 'appDjango/producto_detail.html', {'producto': producto})
+
+class ProductoDetailView(DetailView):
+    model = Producto
+    #def get_queryset(self):
+    #    producto = get_object_or_404(Producto, id=self.kwargs['pk'])
+    #    return producto
+
+class ProductoCreateView(View):
+    def get(self, request):
+        formulario = ProductoForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDjango/producto_create.html', context)
+
+    def post(self, request):
+        formulario = ProductoForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('index')
+        return render(request, 'appDjango/producto_create.html', {'formulario': formulario})
