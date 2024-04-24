@@ -7,17 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
       {% load static %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <title>Deustronic</title>
+    <title>{% block titulo %}Deustronic{% endblock %}</title>
 </head>
 <body>
-    <h1>Deustronic</h1>
-    <h2>Listado de Componentes</h2>
-    <ul>
-        {% for componente in lista_componentes %}
-        <li>
-            {{ componente.referencia_componente }}: {{ componente.modelo_componente }}
-        </li>
-        {% endfor %}
-    </ul>
+    <div id="content">
+        <h1>Gestor de productos</h1>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="/appDjango/productos">Lista de productos</a></li>
+            <li><a href='{% url 'producto_create' %}'>Crear productos</a></li>
+        </ul>
+        {% block contenido %}{% endblock %}
+    </div>
+
 </body>
 </html>
