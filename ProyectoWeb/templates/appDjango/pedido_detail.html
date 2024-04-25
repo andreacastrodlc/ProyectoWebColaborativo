@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block contenido %}
+        <h2>Detalle del pedido</h2>
+        {% if object %}
+            <ul>
+                <li>Fecha pedido: {{ object.fecha_pedido }}</li>
+                <li>Producto solicitado: {{ object.producto_solicitado }}</li>
+            </ul>
+        {% else %}
+            <p>No existe este pedido.</p>
+        {% endif %}
+{% endblock %}

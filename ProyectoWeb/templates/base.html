@@ -11,14 +11,15 @@
 </head>
 <body>
     <div id="content">
-        <h1>Gestor de productos</h1>
+        <h1>Gestor de productos y pedidos</h1>
         <h2>Menu</h2>
         <ul>
             <li><a href="/appDjango/productos">Lista de productos</a></li>
             <li><a href='{% url 'producto_create' %}'>Crear productos</a></li>
+            <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
+            <li><a href='{% url 'pedido_create' %}'>Crear pedidos</a></li>
         </ul>
         {% block contenido %}{% endblock %}
     </div>
-
 </body>
 </html>

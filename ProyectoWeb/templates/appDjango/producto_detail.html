@@ -3,8 +3,8 @@
         <h2>Detalle del producto</h2>
         {% if object %}
             <ul>
-                <li>{{ object.nombre_producto }}</li>
-                <li>{{ object.categoria_producto }}</li>
+                <li>Nombre producto: {{ object.nombre_producto }}</li>
+                <li>Categoría: {{ object.categoria_producto }}</li>
             </ul>
         {% else %}
             <p>No existe este producto.</p>
