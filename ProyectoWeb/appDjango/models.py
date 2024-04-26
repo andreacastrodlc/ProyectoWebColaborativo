@@ -7,7 +7,6 @@ class Producto(models.Model):
     nombre_producto = models.CharField(max_length=255)
     descripcion_producto = models.TextField()
     categoria_producto = models.CharField(max_length=100)
-    referencia_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='productos')
 
     def __str__(self):
         return (f" Referencia: {self.referencia_producto},Nombre: {self.nombre_producto}, "
@@ -22,7 +21,6 @@ class Producto(models.Model):
 class Pedido(models.Model):
     referencia_pedido = models.CharField(max_length=100, unique=True)
     fecha_pedido = models.DateField()
-    producto_solicitado = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='pedidos')
     cantidad_producto = models.IntegerField()
     precio_total = models.DecimalField(max_digits=10, decimal_places=2) #quitar y anadir mediante logica de negocio (precio*cantidad)
     def __str__(self):
@@ -60,3 +58,17 @@ class Cliente(models.Model):
         verbose_name_plural = "Clientes"
         verbose_name = "Cliente"
         ordering = ["cif_cliente"]
+
+
+class DetallePedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad_producto = models.IntegerField()
+    precio_por_producto = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"Pedido: {self.pedido.referencia_pedido}, Producto: {self.producto.nombre_producto}, Cantidad: {self.cantidad_producto}"
+
+    class Meta:
+        verbose_name_plural = "Detalles de Pedidos"
+        verbose_name = "Detalle de Pedido"
