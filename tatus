@@ -1,0 +1,73 @@
+[33mcommit 03cdba5b4881e397f57a4b8107bffddd3ba23e1a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Andrea Castro <160873319+andreacastrodlc@users.noreply.github.com>
+Date:   Thu Apr 25 12:16:14 2024 +0200
+
+    Update README.md
+
+[33mcommit 088d727f5dc87b02ddffe91827e085f30bb17bc6[m
+Author: Andrea Castro <160873319+andreacastrodlc@users.noreply.github.com>
+Date:   Thu Apr 25 12:15:35 2024 +0200
+
+    Create README.md
+
+[33mcommit 960c3b04ca0e281bc5c25fdfb5d004a814943037[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Wed Apr 24 20:02:29 2024 +0200
+
+    crear, listar, detalle productos funcional
+
+[33mcommit d0f5b527f1af49492138dac20a8595af189339e0[m[33m ([m[1;31morigin/gaizka[m[33m)[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Mon Apr 22 21:27:56 2024 +0200
+
+    +cliente como model
+    base.html
+    css aplicado
+
+[33mcommit 3a0ec0ae5bdbae289743a701376ecc7a22d994cd[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Mon Apr 22 16:11:48 2024 +0200
+
+    recuperacion version anterior
+
+[33mcommit 360cd3be9a9eee66a8804079faad1e86c6930d4a[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Mon Apr 22 15:31:32 2024 +0200
+
+    cambio de ruta
+
+[33mcommit c60fb89de45ac21a7b22fbbe8bff6f15507ec4e5[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Mon Apr 22 00:45:49 2024 +0200
+
+    primer html
+
+[33mcommit 87764a3a65719ab2affa7205618d9480c8705cec[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Mon Apr 22 00:15:28 2024 +0200
+
+    refactorizacion de atributos y vista de detalle de componente
+
+[33mcommit 90fe06617ecbe18bfeadb38605d3be8f4b915480[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Sun Apr 21 17:36:09 2024 +0200
+
+    add
+
+[33mcommit 3af007be8177c96f42d67b7036426dabfdc93266[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Sun Apr 21 17:33:40 2024 +0200
+
+    creacion primera vista y actualizacion y creacion de objetos en bbdd
+
+[33mcommit 5d1160869257d94582b6c5fbf019f32c43877508[m
+Author: Andrea <andrea.c.c@opendeusto.es>
+Date:   Wed Apr 17 18:17:50 2024 +0200
+
+    plantilla DocumentaciónProyecto.docx
+
+[33mcommit a4067e108df11d6806cacb9c2dc0d6db460c7d9b[m
+Author: gaizka <gaizka.miranda@opendeusto.es>
+Date:   Wed Apr 17 18:14:46 2024 +0200
+
+    primer commit

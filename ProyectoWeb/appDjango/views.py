@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, View
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, View, DeleteView
 
 from appDjango.forms import ProductoForm
 
@@ -42,3 +43,30 @@ class ProductoCreateView(View):
             formulario.save()
             return redirect('index')
         return render(request, 'appDjango/producto_create.html', {'formulario': formulario})
+
+
+class ProductoDeleteView(DeleteView):
+    model = Producto
+    success_url = reverse_lazy('index') #configuramos en caso de que el delete se haya producido, a dónde se redirigirá, en este caso el index
+
+
+class ProductoUpdateView(UpdateView):
+    model = Producto
+
+    def get(self, request, pk):
+        producto = Producto.objects.get(id=pk)
+        formulario = ProductoForm(instance=producto)
+        context = {
+            'formulario': formulario,
+            'producto': producto
+
+        }
+        return render(request, self.template_name, 'appDjango/producto_update.html/')
+        producto = Producto.objects.get(id=pk)
+        formulario = ProductoForm(request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('index')
+        else:
+            formulario= ProductoForm(instance=producto)
+        return render(request, self.template_name, 'appDjango/producto_update.html')
