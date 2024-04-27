@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-from .views import ProductoListView, ProductoDetailView, ProductoCreateView, ProductoDeleteView, PedidoCreateView
+from .views import ProductoListView, ProductoDetailView, ProductoCreateView, ProductoDeleteView, PedidoCreateView, PedidoDetailView, PedidoUpdateView
 
 urlpatterns = [
     path('productos/', ProductoListView.as_view(), name='index_productos'),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('productos/create', ProductoCreateView.as_view(), name='producto_create'),
     path('productos/<int:producto>', views.ProductoDeleteView.as_view(), name='producto_delete'),
     path('productos/<int:producto>', views.ProductoUpdateView.as_view(), name='producto_update'),
-    path('/pedidos/create', PedidoCreateView.as_view(), name='pedido_create'),
-
+    path('pedidos/create', PedidoCreateView.as_view(), name='pedido_create'),
+    path('/pedidos/<int:pk>', PedidoDetailView.as_view(), name='pedidos_detail'),
+    path('/pedidos/<int:pk>', PedidoUpdateView.as_view(), name='pedidos_update')
 ]

@@ -76,6 +76,19 @@ class ProductoUpdateView(UpdateView):
             formulario = ProductoForm(instance=producto)
         return render(request, self.template_name, 'appDjango/producto_update.html')
 
+class PedidoListView(ListView):
+    model = Pedido
+    template_name = "appDjango/pedido_show.html"
+    context_object_name = "pedidos"
+
+
+#detalle de un pedido
+class PedidoDetailView(DetailView):
+    model = Pedido
+    def get_queryset(self):
+        pedido = get_object_or_404(Pedido, id=self.kwargs['pk'])
+        return Producto.objects.filter(departamento=pedido)
+
 
 class PedidoCreateView(View):
     def get(self, request):
@@ -89,3 +102,25 @@ class PedidoCreateView(View):
             formulario.save()
             return redirect('index')
         return render(request, 'appDjango/pedido_create.html', {'formulario': formulario})
+
+
+
+class PedidoUpdateView(UpdateView):
+    model = Pedido
+    def get(self, request, pk):
+        pedido = Pedido.objects.get(id=pk)
+        formulario = PedidoForm( instance=pedido)
+        context = {
+            'formulario': formulario,
+            'pedido': pedido
+        }
+        return render(request, 'appDjango/pedido_update.html', context)
+    def post(self, request, pk):
+        pedido = Pedido.objects.get(id= pk)
+        formulario = PedidoForm(request.POST, instance=pedido)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('pedidos_show', pedido.id)
+        else:
+            formulario= PedidoForm(instance=pedido)
+        return render(request, 'appDjango/pedidos_update.html', {'formulario': formulario})
