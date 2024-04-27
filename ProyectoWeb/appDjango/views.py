@@ -8,7 +8,7 @@ from appDjango.forms import ProductoForm, PedidoForm
 
 from django.http import HttpResponse
 
-from appDjango.models import Producto
+from .models import Producto, Pedido, Componente, Cliente, DetallePedido
 
 
 #def index_productos(request):
