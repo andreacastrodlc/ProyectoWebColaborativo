@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
+
 {% block contenido %}
-        <h2>Detalle del pedido</h2>
-        {% if object %}
+    <h2>Detalle del pedido</h2>
+
+    {% if object %}
+        <ul>
+            <li>Fecha pedido: {{ object.fecha_pedido }}</li>
+            <li>Cliente: {{ object.cif_cliente }}</li>
+            <h3>Productos solicitados:</h3>
             <ul>
-                <li>Fecha pedido: {{ object.fecha_pedido }}</li>
-                <li>Producto solicitado: {{ object.producto_solicitado }}</li>
+                {% for producto in object.contenidopedido_set.all %}
+                    <li>{{ producto.referencia_producto }}: Cantidad: {{ producto.cantidad_producto }}</li>
+                {% endfor %}
             </ul>
-        {% else %}
-            <p>No existe este pedido.</p>
-        {% endif %}
+        </ul>
+    {% else %}
+        <p>No existe este pedido.</p>
+    {% endif %}
 {% endblock %}

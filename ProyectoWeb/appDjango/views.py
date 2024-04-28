@@ -7,13 +7,13 @@ from appDjango.forms import ProductoForm, PedidoForm
 
 from django.http import HttpResponse
 
-from appDjango.models import  Producto, Pedido
+from appDjango.models import  Producto, Pedido, ComponenteProducto, Componente, Contenidopedido
 
 
-def index_productos(request):
-    productos = Producto.objects.order_by('referencia_producto')
-    context = {'lista_productos': productos}
-    return render(request, 'base.html', context)
+#def index_productos(request):
+ #   productos = Producto.objects.order_by('referencia_producto')
+  #  context = {'lista_productos': productos}
+   # return render(request, 'base.html', context)
 
 class ProductoListView(ListView):
     model = Producto

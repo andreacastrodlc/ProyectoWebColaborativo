@@ -4,7 +4,7 @@
         {% if pedidos %}
             <ul>
                 {% for pedido in pedidos %}
-                	<li><a href="{% url 'pedidos_show' pedido.id %}">{{ pedido.referencia_pedido }}</a></li>
+                	<li><a href="{% url 'pedidos_show' pedido.referencia_pedido %}">{{ pedido.referencia_pedido }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
