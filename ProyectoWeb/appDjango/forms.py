@@ -1,6 +1,6 @@
 from django import forms
 
-from appDjango.models import Producto, Pedido
+from appDjango.models import Producto, Pedido, Componente
 
 
 class ProductoForm(forms.ModelForm):
@@ -11,4 +11,10 @@ class ProductoForm(forms.ModelForm):
 class PedidoForm(forms.ModelForm):
     class Meta:
         model = Pedido
+        fields = '__all__'
+
+
+class ComponenteForm(forms.ModelForm):
+    class Meta:
+        model = Componente
         fields = '__all__'
