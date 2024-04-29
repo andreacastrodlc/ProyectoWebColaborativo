@@ -4,7 +4,7 @@
         {% if componentes %}
             <ul>
                 {% for componente in componentes %}
-                	<li><a href="{% url 'componente_show' componente.referencia_componente %}">{{ componente.referencia_componente }} - {{ componente.modelo_componente }}</a></li>
+                	<li><a href="{% url 'componente_show' componente.referencia_componente %}">{{ componente.modelo_componente }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

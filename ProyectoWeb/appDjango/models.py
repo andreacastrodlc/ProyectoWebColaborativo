@@ -24,11 +24,11 @@ class Pedido(models.Model):
     referencia_pedido = models.AutoField(primary_key=True)
     fecha_pedido = models.DateField()
     cif_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    precio_total = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0) # default para que no haya errores al crear un nuevo producto sin introducir el precio total
 
     def __str__(self):
         return (f"Código de referencia: {self.referencia_pedido}, Fecha de pedido: {self.fecha_pedido}, "
-                f"CIF Cliente: {self.cif_cliente}, Precio total: {self.precio_total}")
+                f"{self.cif_cliente}, Precio total: {self.precio_total}")
 
     class Meta:
         verbose_name_plural = "Pedidos"
@@ -60,7 +60,7 @@ class Contenidopedido(models.Model):
     cantidad_producto = models.IntegerField()
 
     def __str__(self):
-        return (f'Referencia pedido: {self.referencia_pedido}, Referencia producto: {self.referencia_producto}, '
+        return (f'{self.referencia_pedido}, {self.referencia_producto}, '
                 f'Cantidad producto: {self.cantidad_producto}')
 
     class Meta:
@@ -87,7 +87,7 @@ class ComponenteProducto(models.Model):
     referencia_componente = models.ForeignKey(Componente, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Referencia producto: {self.referencia_producto}, Referencia componente: {self.referencia_componente}"
+        return f"{self.referencia_producto}, {self.referencia_componente}"
 
     class Meta:
         ordering = ["referencia_producto"]

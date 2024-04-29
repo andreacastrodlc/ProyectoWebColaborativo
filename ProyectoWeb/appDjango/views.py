@@ -6,7 +6,7 @@ from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm
 # Create your views here.
 
 
-from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido
+from appDjango.models import Producto, Pedido, ComponenteProducto, Componente
 
 
 class ProductoListView(ListView):
@@ -93,7 +93,6 @@ def asignar_componentes_producto(request, pk):
         #iteracion sobre los ID de los componentes seleccionados
         for componente_id in componentes_seleccionados:
             componente = get_object_or_404(Componente, pk=componente_id)
-
             #creacion y guardado de un nuevo componente_producto
             componenteproducto = ComponenteProducto(referencia_producto=producto, referencia_componente=componente)
             componenteproducto.save()
