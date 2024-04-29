@@ -9,11 +9,6 @@ from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm
 from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido
 
 
-# def index_productos(request):
-#   productos = Producto.objects.order_by('referencia_producto')
-#  context = {'lista_productos': productos}
-# return render(request, 'base.html', context)
-
 class ProductoListView(ListView):
     model = Producto
     template_name = "appDjango/producto_index.html"
@@ -22,9 +17,6 @@ class ProductoListView(ListView):
 
 class ProductoDetailView(DetailView):
     model = Producto
-    # def get_queryset(self):
-    #   producto = get_object_or_404(Producto, id=self.kwargs['pk'])
-    #  return producto
 
 
 class ProductoCreateView(View):
@@ -47,16 +39,8 @@ class PedidoListView(ListView):
     context_object_name = "pedidos"
 
 
-def show_pedido(request, referencia_pedido):
-    pedido = get_object_or_404(Pedido, id=referencia_pedido)
-    return render(request, 'appDjango/pedido_detail.html', {'pedido': pedido})
-
-
 class PedidoDetailView(DetailView):
     model = Pedido
-    # def get_queryset(self):
-    #   producto = get_object_or_404(Producto, id=self.kwargs['pk'])
-    #  return producto
 
 
 class PedidoCreateView(View):
@@ -82,6 +66,7 @@ class ComponenteListView(ListView):
 class ComponenteDetailView(DetailView):
     model = Componente
 
+
 class ComponenteCreateView(View):
     def get(self, request):
         formulario = ComponenteForm()
@@ -94,3 +79,27 @@ class ComponenteCreateView(View):
             formulario.save()
             return redirect('index_componentes')
         return render(request, 'appDjango/componente_create.html', {'formulario': formulario})
+
+
+def asignar_componentes_producto(request, pk):
+    #se obtiene el objeto del producto al que vamos a anadir componentes
+    producto = get_object_or_404(Producto, pk=pk)
+
+    #si se envia el formulario:
+    if request.method == 'POST':
+        #se obtiene una lista de los IDs de los componentes seleccionados
+        componentes_seleccionados = request.POST.getlist('componentes')
+
+        #iteracion sobre los ID de los componentes seleccionados
+        for componente_id in componentes_seleccionados:
+            componente = get_object_or_404(Componente, pk=componente_id)
+
+            #creacion y guardado de un nuevo componente_producto
+            componenteproducto = ComponenteProducto(referencia_producto=producto, referencia_componente=componente)
+            componenteproducto.save()
+
+    componentes = Componente.objects.all()
+    componentes_asignados = producto.componenteproducto_set.all()
+
+    context = {'producto': producto, 'componentes': componentes, 'componentes_asignados': componentes_asignados}
+    return render(request, 'appDjango/asignar_componentes_producto.html', context)

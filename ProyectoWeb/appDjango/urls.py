@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (ProductoListView, ProductoDetailView, ProductoCreateView, PedidoListView, PedidoCreateView,
-                    PedidoDetailView, ComponenteListView, ComponenteDetailView, ComponenteCreateView)
+                    PedidoDetailView, ComponenteListView, ComponenteDetailView, ComponenteCreateView, asignar_componentes_producto)
 
 urlpatterns = [
     path('productos/', ProductoListView.as_view(), name='index_productos'),
@@ -11,5 +11,6 @@ urlpatterns = [
     path('pedidos/create', PedidoCreateView.as_view(), name='pedido_create'),
     path('componentes/', ComponenteListView.as_view(), name='index_componentes'),
     path('componentes/<int:pk>', ComponenteDetailView.as_view(), name='componente_show'),
-    path('componentes/create', ComponenteCreateView.as_view(), name='componente_create')
+    path('componentes/create', ComponenteCreateView.as_view(), name='componente_create'),
+    path('productos/<int:pk>/asignar_componentes/', asignar_componentes_producto, name='asignar_componentes_producto')
 ]
