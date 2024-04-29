@@ -1,11 +1,14 @@
 from django.urls import path
+
 from .views import (ProductoListView, ProductoDetailView, ProductoCreateView, PedidoListView, PedidoCreateView,
                     PedidoDetailView, ComponenteListView, ComponenteDetailView, ComponenteCreateView,
-                    asignar_componentes_producto)
+                    asignar_componentes_producto, ProductoDeleteView, ProductoUpdateView)
 
 urlpatterns = [
     path('productos/', ProductoListView.as_view(), name='index_productos'),
     path('productos/<int:pk>', ProductoDetailView.as_view(), name='productos_show'),
+    path('productos/eliminar/<int:pk>/', ProductoDeleteView.as_view(), name='producto_delete'),
+    path('productos/modificar/<int:pk>', ProductoUpdateView.as_view(), name='producto_update'),
     path('productos/create', ProductoCreateView.as_view(), name='producto_create'),
     path('pedidos/', PedidoListView.as_view(), name='index_pedidos'),
     path('pedidos/<int:pk>', PedidoDetailView.as_view(), name='pedidos_show'),

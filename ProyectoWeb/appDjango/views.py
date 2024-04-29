@@ -1,5 +1,8 @@
+from audioop import reverse
+
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, View
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
 
 from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm
 
@@ -31,6 +34,33 @@ class ProductoCreateView(View):
             formulario.save()
             return redirect('index_productos')
         return render(request, 'appDjango/producto_create.html', {'formulario': formulario})
+
+
+class ProductoDeleteView(DeleteView):
+    model = Producto
+    success_url = reverse_lazy('index_productos')
+
+
+class ProductoUpdateView(UpdateView):
+    model = Producto
+    template_name = 'appDjango/producto_update.html'
+    form_class = ProductoForm
+
+    def get(self, request, pk):
+        producto = get_object_or_404(Producto, pk=pk)
+        formulario = self.form_class(instance=producto)
+        context = {'formulario': formulario, 'producto': producto}
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        producto = get_object_or_404(Producto, pk=pk)
+        formulario = self.form_class(request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('productos_show', pk=producto.pk)
+        else:
+            context = {'formulario': formulario, 'producto': producto}
+            return render(request, self.template_name, context)
 
 
 class PedidoListView(ListView):
