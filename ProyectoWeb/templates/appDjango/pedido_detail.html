@@ -7,6 +7,7 @@
         <ul>
             <li>Fecha pedido: {{ object.fecha_pedido }}</li>
             <li>Cliente: {{ object.cif_cliente }}</li>
+            <li>Precio total: {{ object.precio_total }} €</li>
             <h3>Productos solicitados:</h3>
             <ul>
                 {% for producto in object.contenidopedido_set.all %}
@@ -14,6 +15,7 @@
                 {% endfor %}
             </ul>
         </ul>
+        <a href="{% url 'asignar_productos_pedido' pk_pedido=pedido.pk %}">Asignar productos a este pedido</a>
     {% else %}
         <p>No existe este pedido.</p>
     {% endif %}

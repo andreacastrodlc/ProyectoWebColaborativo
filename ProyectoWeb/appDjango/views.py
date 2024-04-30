@@ -1,15 +1,14 @@
-from audioop import reverse
 
+from django.db.models import Sum, F
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
 
 from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm
-
 # Create your views here.
 
 
-from appDjango.models import Producto, Pedido, ComponenteProducto, Componente
+from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido
 
 
 class ProductoListView(ListView):
@@ -72,6 +71,20 @@ class PedidoListView(ListView):
 class PedidoDetailView(DetailView):
     model = Pedido
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pedido = self.object
+
+        #calcular el precio total del pedido sumando el precio de todos los productos asociados
+        precio_total = pedido.contenidopedido_set.annotate(
+            precio_total_producto=F('referencia_producto__precio_producto') * F('cantidad_producto')
+        ).aggregate(total=Sum('precio_total_producto'))['total']
+        pedido.precio_total = precio_total or 0  #si no hay productos asociados precio total=0
+
+        pedido.save()
+
+        return context
+
 
 class PedidoCreateView(View):
     def get(self, request):
@@ -82,8 +95,8 @@ class PedidoCreateView(View):
     def post(self, request):
         formulario = PedidoForm(data=request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('index_pedidos')
+            pedido = formulario.save()
+            return redirect('pedidos_show', pk=pedido.pk)
         return render(request, 'appDjango/pedido_create.html', {'formulario': formulario})
 
 
@@ -132,3 +145,23 @@ def asignar_componentes_producto(request, pk):
 
     context = {'producto': producto, 'componentes': componentes, 'componentes_asignados': componentes_asignados}
     return render(request, 'appDjango/asignar_componentes_producto.html', context)
+
+
+def asignar_productos_pedido(request, pk_pedido):
+    pedido = get_object_or_404(Pedido, pk=pk_pedido)
+
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto_id')
+        cantidad = int(request.POST.get('cantidad', 0))
+
+        if producto_id and cantidad > 0:
+            producto = get_object_or_404(Producto, pk=producto_id)
+
+            Contenidopedido.objects.create(referencia_pedido=pedido, referencia_producto=producto,
+                                           cantidad_producto=cantidad)
+
+            return redirect('pedidos_show', pk=pk_pedido)
+
+    productos = Producto.objects.all()
+    context = {'pedido': pedido, 'productos': productos}
+    return render(request, 'appDjango/asignar_productos_pedido.html', context)
