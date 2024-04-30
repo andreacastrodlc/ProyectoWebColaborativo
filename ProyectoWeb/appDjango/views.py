@@ -71,15 +71,17 @@ class PedidoListView(ListView):
 class PedidoDetailView(DetailView):
     model = Pedido
 
+# https://stackoverflow.com/questions/53023775/simple-math-on-django-views-with-decimals
+# https://docs.djangoproject.com/en/5.0/ref/models/expressions/
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pedido = self.object
 
-        #calcular el precio total del pedido sumando el precio de todos los productos asociados
+        # calcular el precio total del pedido sumando el precio de todos los productos asociados
         precio_total = pedido.contenidopedido_set.annotate(
             precio_total_producto=F('referencia_producto__precio_producto') * F('cantidad_producto')
         ).aggregate(total=Sum('precio_total_producto'))['total']
-        pedido.precio_total = precio_total or 0  #si no hay productos asociados precio total=0
+        pedido.precio_total = precio_total or 0  # si no hay productos asociados precio total=0
 
         pedido.save()
 
