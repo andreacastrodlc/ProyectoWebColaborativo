@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block contenido %}
+    <h2>Listado de pedidos</h2>
+    {% if pedidos %}
+        <ul>
+            {% for pedido in pedidos %}
+                <li>
+                    <a href="{% url 'pedidos_show' pedido.referencia_pedido %}">
+                        Ref.{{ pedido.referencia_pedido }}.-Fecha: {{ pedido.fecha_pedido }} - Cliente:
+                        {{ pedido.cif_cliente.nombre_empresa_cliente }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay pedidos creados.</p>
+    {% endif %}
+{% endblock %}

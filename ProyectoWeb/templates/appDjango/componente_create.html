@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block contenido %}
-    <h2>Editar pedido</h2>
-    <form action="{% url 'pedidos_update' pedido.id%}" method="post">
+    <h2>Nuevo componente</h2>
+    <form action="{% url 'componente_create' %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
         {{ formulario.as_ul }}
-        <input type="submit" value="Editar pedido"/>
+        <input type="submit" value="Nuevo componente"/>
     </form>
 
 {% endblock %}

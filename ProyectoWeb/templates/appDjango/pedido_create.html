@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block contenido %}
     <h2>Nuevo pedido</h2>
-    <form action="{% url 'departamento_create' %}" method="post">
+    <form action="{% url 'pedido_create' %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
         {{ formulario.as_ul }}
         <input type="submit" value="Nuevo pedido"/>
     </form>
-
 {% endblock %}

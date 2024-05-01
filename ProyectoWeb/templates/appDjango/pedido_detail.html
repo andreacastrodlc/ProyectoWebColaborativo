@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
+
 {% block contenido %}
-        <h2>Detalle del pedido</h2>
-        {% if DetallePedido %}
+    <h2>Detalle del pedido</h2>
+
+    {% if object %}
+        <ul>
+            <li>Fecha pedido: {{ object.fecha_pedido }}</li>
+            <li>Cliente: {{ object.cif_cliente }}</li>
+            <li>Precio total: {{ object.precio_total }} €</li>
+            <h3>Productos solicitados:</h3>
             <ul>
-                <li>{{ DetallePedido.pedido }}</li>
-                <li>{{ DetallePedido.producto }}</li>
-                <li>{{ DetallePedido.cantidad_producto }}</li>
-                <li>{{ DetallePedido.precio_por_producto }}</li>
-
-
-                <li>
-                    <a href="{% url 'producto_index' pedido.id %}">Ver productos</a>
-                </li>
+                {% for producto in object.contenidopedido_set.all %}
+                    <li>{{ producto.referencia_producto }}: Cantidad: {{ producto.cantidad_producto }}</li>
+                {% endfor %}
             </ul>
-        {% else %}
-            <p>No existe este pedido.</p>
-        {% endif %}
+        </ul>
+        <a href="{% url 'asignar_productos_pedido' pk_pedido=pedido.pk %}">Asignar productos a este pedido</a>
+    {% else %}
+        <p>No existe este pedido.</p>
+    {% endif %}
 {% endblock %}
-
