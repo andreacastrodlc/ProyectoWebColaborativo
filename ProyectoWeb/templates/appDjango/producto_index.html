@@ -4,7 +4,8 @@
         {% if productos %}
             <ul>
                 {% for producto in productos %}
-                	<li><a href="{% url 'productos_show' producto.referencia_producto %}">{{ producto.nombre_producto }}</a></li>
+                	<li><a href="{% url 'productos_show' producto.referencia_producto %}">
+                        {{ producto.nombre_producto }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

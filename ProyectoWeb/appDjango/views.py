@@ -4,11 +4,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
 
-from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm
+from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm
 # Create your views here.
 
 
-from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido
+from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido, Cliente
 
 
 class ProductoListView(ListView):
@@ -167,3 +167,55 @@ def asignar_productos_pedido(request, pk_pedido):
     productos = Producto.objects.all()
     context = {'pedido': pedido, 'productos': productos}
     return render(request, 'appDjango/asignar_productos_pedido.html', context)
+
+
+class ClienteListView(ListView):
+    model = Cliente
+    template_name = "appDjango/cliente_index.html"
+    context_object_name = "clientes"
+
+
+class ClienteDetailView(DetailView):
+    model = Cliente
+
+
+class ClienteCreateView(View):
+    def get(self, request):
+        formulario = ClienteForm()
+        context = {'formulario': formulario}
+        return render(request, 'appDjango/cliente_create.html', context)
+
+    def post(self, request):
+        formulario = ClienteForm(data=request.POST)
+        if formulario.is_valid():
+            nuevo_cliente = formulario.save()
+            return redirect('clientes_show', pk=nuevo_cliente.pk)
+        return render(request, 'appDjango/cliente_create.html', {'formulario': formulario})
+
+
+class ClienteDeleteView(DeleteView):
+    model = Cliente
+    success_url = reverse_lazy('index_clientes')
+
+
+class ClienteUpdateView(UpdateView):
+    model = Cliente
+    template_name = 'appDjango/cliente_update.html'
+    form_class = ClienteForm
+
+    def get(self, request, pk):
+        cliente = get_object_or_404(Cliente, pk=pk)
+        formulario = self.form_class(instance=cliente)
+        context = {'formulario': formulario, 'cliente': cliente}
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        cliente = get_object_or_404(Cliente, pk=pk)
+        formulario = self.form_class(request.POST, instance=cliente)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('clientes_show', pk=cliente.pk)
+        else:
+            context = {'formulario': formulario, 'cliente': cliente}
+            return render(request, self.template_name, context)
+

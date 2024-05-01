@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block contenido %}
+        <h2>Detalles del cliente</h2>
+        {% if object %}
+            <ul>
+                <li>Cif cliente : {{ object.cif_cliente }}</li>
+                <li>Nombre: {{ object.nombre_empresa_cliente }}</li>
+                <li>Dirección: {{ object.direccion_cliente }}</li>
+                <li>Telefono: {{ object.telefono_cliente }}</li>
+                <li>Correo electrónico: {{ object.email_cliente }}</li>
+                <li><a href="{% url 'cliente_update' object.pk %}">Modificar cliente</a></li>
+                   <form method="post" action="{% url 'cliente_delete' object.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Eliminar cliente</button>
+                   </form>
+            </ul>
+        {% else %}
+            <p>No existe este cliente.</p>
+        {% endif %}
+{% endblock %}
+
+
+

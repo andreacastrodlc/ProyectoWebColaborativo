@@ -1,6 +1,6 @@
 from django import forms
 
-from appDjango.models import Producto, Pedido, Componente, Contenidopedido
+from appDjango.models import Producto, Pedido, Componente, Contenidopedido, Cliente
 
 
 class ProductoForm(forms.ModelForm):
@@ -25,3 +25,9 @@ class ContenidoPedidoForm(forms.ModelForm):
     class Meta:
         model = Contenidopedido
         fields = ['referencia_pedido', 'referencia_producto', 'cantidad_producto']
+
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = '__all__'

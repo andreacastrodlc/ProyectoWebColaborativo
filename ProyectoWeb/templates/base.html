@@ -11,8 +11,8 @@
 </head>
 <body>
     <div id="content">
-        <h1>Gestor de productos y pedidos</h1>
-        <h2>Menu</h2>
+        <h1>Gestor de productos, pedidos y clientes</h1>
+        <h2>Menú</h2>
         <ul>
             <li><a href="/appDjango/productos">Lista de productos</a></li>
             <li><a href='{% url 'producto_create' %}'>Crear nuevo producto</a></li>
@@ -20,6 +20,8 @@
             <li><a href='{% url 'pedido_create' %}'>Crear nuevo pedido</a></li>
             <li><a href="/appDjango/componentes">Lista de componentes</a></li>
             <li><a href='{% url 'componente_create' %}'>Crear nuevo componente</a></li>
+            <li><a href="/appDjango/clientes">Lista de clientes</a></li>
+            <li><a href='{% url 'cliente_create' %}'>Crear nuevo cliente</a></li>
         </ul>
         {% block contenido %}{% endblock %}
     </div>

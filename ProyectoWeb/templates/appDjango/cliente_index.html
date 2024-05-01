@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block contenido %}
+        <h2>Listado de clientes</h2>
+        {% if clientes %}
+            <ul>
+                {% for cliente in clientes %}
+                	<li><a href="{% url 'clientes_show' cliente.cif_cliente %}">
+                        {{ cliente.nombre_empresa_cliente }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay clientes creados.</p>
+        {% endif %}
+{% endblock %}
