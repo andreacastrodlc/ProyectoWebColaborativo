@@ -2,16 +2,18 @@
 
 {% block contenido %}
     <h2>Detalle del pedido</h2>
-
     {% if object %}
         <ul>
             <li>Fecha pedido: {{ object.fecha_pedido }}</li>
             <li>Cliente: {{ object.cif_cliente }}</li>
             <li>Precio total: {{ object.precio_total }} €</li>
+            <li><a href="{% url 'pedido_update' object.pk %}">Modificar pedido</a></li>
             <h3>Productos solicitados:</h3>
             <ul>
-                {% for producto in object.contenidopedido_set.all %}
-                    <li>{{ producto.referencia_producto }}: Cantidad: {{ producto.cantidad_producto }}</li>
+                {% for producto_pedido in object.contenidopedido_set.all %}
+                    <li>{{ producto_pedido.referencia_producto.nombre_producto }} || Precio:
+                        {{ producto_pedido.referencia_producto.precio_producto }} € || Cantidad:
+                        {{ producto_pedido.cantidad_producto }}</li>
                 {% endfor %}
             </ul>
         </ul>

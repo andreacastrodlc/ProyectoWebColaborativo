@@ -127,18 +127,18 @@ class ComponenteCreateView(View):
 
 
 def asignar_componentes_producto(request, pk):
-    #se obtiene el objeto del producto al que vamos a anadir componentes
+    # se obtiene el objeto del producto al que vamos a anadir componentes
     producto = get_object_or_404(Producto, pk=pk)
 
-    #si se envia el formulario:
+    # si se envia el formulario:
     if request.method == 'POST':
-        #se obtiene una lista de los IDs de los componentes seleccionados
+        # se obtiene una lista de los IDs de los componentes seleccionados
         componentes_seleccionados = request.POST.getlist('componentes')
 
-        #iteracion sobre los ID de los componentes seleccionados
+        # iteracion sobre los ID de los componentes seleccionados
         for componente_id in componentes_seleccionados:
             componente = get_object_or_404(Componente, pk=componente_id)
-            #creacion y guardado de un nuevo componente_producto
+            # creacion y guardado de un nuevo componente_producto
             componenteproducto = ComponenteProducto(referencia_producto=producto, referencia_componente=componente)
             componenteproducto.save()
 
@@ -219,3 +219,24 @@ class ClienteUpdateView(UpdateView):
             context = {'formulario': formulario, 'cliente': cliente}
             return render(request, self.template_name, context)
 
+
+class PedidoUpdateView(UpdateView):
+    model = Pedido
+    template_name = 'appDjango/pedido_update.html'
+    form_class = PedidoForm
+
+    def get(self, request, pk):
+        pedido = get_object_or_404(Pedido, pk=pk)
+        formulario = self.form_class(instance=pedido)
+        context = {'formulario': formulario, 'pedido': pedido}
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        pedido = get_object_or_404(Pedido, pk=pk)
+        formulario = self.form_class(request.POST, instance=pedido)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('pedidos_show', pk=pedido.pk)
+        else:
+            context = {'formulario': formulario, 'pedido': pedido}
+            return render(request, self.template_name, context)

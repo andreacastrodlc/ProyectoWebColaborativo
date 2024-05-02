@@ -24,7 +24,8 @@ class Pedido(models.Model):
     referencia_pedido = models.AutoField(primary_key=True)
     fecha_pedido = models.DateField()
     cif_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0) #default para que no haya errores al crear un nuevo producto sin introducir el precio total
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    # default para que no haya errores al crear un nuevo producto sin introducir el precio total
 
     def __str__(self):
         return (f"Código de referencia: {self.referencia_pedido}, Fecha de pedido: {self.fecha_pedido}, "

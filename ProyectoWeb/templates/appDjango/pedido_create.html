@@ -4,7 +4,17 @@
     <form action="{% url 'pedido_create' %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
-        {{ formulario.as_ul }}
+
+        <div>
+            <label for="{{ formulario.cliente.id_for_label }}">Cliente:</label>
+            {{ formulario.cif_cliente }}
+        </div>
+
+        <div>
+            <label for="{{ formulario.direccion_envio.id_for_label }}">Fecha:</label>
+            {{ formulario.fecha_pedido }}
+        </div>
+
         <input type="submit" value="Nuevo pedido"/>
     </form>
 {% endblock %}
