@@ -10,8 +10,9 @@
             {{ formulario.cif_cliente }}
         </div>
         <div>
-            <label for="{{ formulario.direccion_envio.id_for_label }}">Fecha:</label>
-            {{ formulario.fecha_pedido }}
+            <label for="{{ formulario.fecha_pedido.id_for_label }}">Fecha:</label>
+            <input type="date" id="{{ formulario.fecha_pedido.id_for_label }}"
+                   name="{{ formulario.fecha_pedido.name }}" required>
         </div>
 
         <input type="submit" value="Nuevo pedido"/>
