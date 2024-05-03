@@ -75,12 +75,12 @@ ul li a {
 }
 
 .categoria h2 {
-    margin: 0 0 10px; /* Espacio entre título y lista */
+    margin: 0 0 10px;
 }
 
 .categoria ul li {
     list-style: none;
-    margin-bottom: 5px; /* Espacio entre elementos de la lista */
+    margin-bottom: 5px;
 }
 
 
@@ -150,4 +150,43 @@ button.boton-borrar {
 
 button.boton-borrar:hover {
     background-color: #bd2130;
+}
+/* -------------Estilo para el Header y Logo-------- */
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 40px;
+    background-color: #589ee4;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-icon {
+    width: 100px;
+    height: auto;
+    margin-right: 40px;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .header-icon {
+        margin-bottom: 10px;
+    }
+
+    .site-header h1 {
+        text-align: center;
+        font-size: 20px;
+    }
 }
