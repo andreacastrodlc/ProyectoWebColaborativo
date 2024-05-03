@@ -30,7 +30,7 @@
 }
 /* ---------------------Estilo del Cuadro secundario del MENU--------------------------------------------------------------------------- */
 .categoria {
-    background-color: #fdfdfd;
+    background-color: #051C24;
     border: 1px solid #2c51e3;
     border-radius: 10px;
     padding: 20px;
@@ -68,7 +68,7 @@
 }
 
 h1, h2 {
-    color: #0056b3;
+    color: #68adf3;
     font-weight: normal;
 }
 
@@ -113,7 +113,7 @@ ul li a {
 
 .categoria {
     margin: 0 10px;
-    background-color: #d4e1f6;
+    background-color: #051C24;;
     border-radius: 8px;
     padding: 20px;
 }
@@ -172,7 +172,7 @@ input[type="submit"]:hover {
 
 /* -------------Estilos para los botones submit----------------------------------------------------------------------------------- */
 input[type="submit"].boton-anadir {
-    background-color: #205dfa;
+    background-color: #14161c;
     color: white;
     border: none;
     border-radius: 4px;
@@ -206,7 +206,7 @@ button.boton-borrar:hover {
     align-items: center;
     justify-content: center;
     padding: 40px 40px;
-    background-color: #589ee4;
+    background-color: #051C24;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
