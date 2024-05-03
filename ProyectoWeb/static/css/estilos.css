@@ -1,4 +1,4 @@
- body {
+body {
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: #f4f4f4;
     color: black;
@@ -86,9 +86,9 @@ h2 {
 ul {
     list-style: none;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 ul li {
@@ -97,13 +97,16 @@ ul li {
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    margin: 5px;
+    text-align: center;
+    flex: 1 0 250px; /* Tamaño mínimo y máximo de cada ítem */
 }
 
 ul li a {
     color: #1a73e8;
     text-decoration: none;
-    display: block;
 }
+
 
 .cajas-menu {
     display: flex;
@@ -261,4 +264,3 @@ button.boton-borrar:hover {
 .derechos {
     margin-top: 20px;
 }
-
