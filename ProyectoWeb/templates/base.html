@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      {% load static %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <title>{% block titulo %}Deustronic{% endblock %}</title>
 </head>
@@ -14,14 +14,34 @@
         <h1>Gestor de productos, pedidos y clientes</h1>
         <h2>Menú</h2>
         <ul>
-            <li><a href="/appDjango/productos">Lista de productos</a></li>
-            <li><a href='{% url 'producto_create' %}'>Crear nuevo producto</a></li>
-            <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
-            <li><a href='{% url 'pedido_create' %}'>Crear nuevo pedido</a></li>
-            <li><a href="/appDjango/componentes">Lista de componentes</a></li>
-            <li><a href='{% url 'componente_create' %}'>Crear nuevo componente</a></li>
-            <li><a href="/appDjango/clientes">Lista de clientes</a></li>
-            <li><a href='{% url 'cliente_create' %}'>Crear nuevo cliente</a></li>
+            <li>
+                <h2>Productos</h2>
+                <ul>
+                    <li><a href="/appDjango/productos">Lista de productos</a></li>
+                    <li><a href='{% url 'producto_create' %}'>Crear nuevo producto</a></li>
+                </ul>
+            </li>
+            <li>
+                <h2>Pedidos</h2>
+                <ul>
+                    <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
+                    <li><a href='{% url 'pedido_create' %}'>Crear nuevo pedido</a></li>
+                </ul>
+            </li>
+            <li>
+                <h2>Componentes</h2>
+                <ul>
+                    <li><a href="/appDjango/componentes">Lista de componentes</a></li>
+                    <li><a href='{% url 'componente_create' %}'>Crear nuevo componente</a></li>
+                </ul>
+            </li>
+            <li>
+                <h2>Clientes</h2>
+                <ul>
+                    <li><a href="/appDjango/clientes">Lista de clientes</a></li>
+                    <li><a href='{% url 'cliente_create' %}'>Crear nuevo cliente</a></li>
+                </ul>
+            </li>
         </ul>
         {% block contenido %}{% endblock %}
     </div>
