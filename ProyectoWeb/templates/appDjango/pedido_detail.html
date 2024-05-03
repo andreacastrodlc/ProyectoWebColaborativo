@@ -8,7 +8,6 @@
             <li>Cliente: {{ object.cif_cliente }}</li>
             <li>Precio total: {{ object.precio_total }} €</li>
             <li><a href="{% url 'pedido_update' object.pk %}">Modificar pedido</a></li>
-            <h3>Productos solicitados:</h3>
             <ul>
                 {% for producto_pedido in object.contenidopedido_set.all %}
                     <li>

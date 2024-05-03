@@ -239,3 +239,26 @@ button.boton-borrar:hover {
         font-size: 20px;
     }
 }
+
+ footer {
+    background-color: #051C24;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.contenedor-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: auto;
+}
+ .contacto{
+    width: 30%;
+    text-align: center;
+}
+.derechos {
+    margin-top: 20px;
+}
+
