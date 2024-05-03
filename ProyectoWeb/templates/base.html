@@ -7,47 +7,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <title>Catálogo de Productos, Clientes</title>
+    <title>Deustronic S. L.</title>
 </head>
 <body>
    <header class="site-header">
     <img src="{% static 'images/logo.png' %}" alt="Logo" class="header-icon">
-    <h1>Catálogo de Productos y Clientes</h1>
+    <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
    </header>
 
     <div id="content">
         <h2>Menú</h2>
+   <div class="cajas-menu">
+    <div class="categoria">
+        <h2>💻 Productos 💻</h2>
         <ul>
-            <li>
-                <h2>Productos</h2>
-                <ul>
-                    <li><a href="/appDjango/productos">Lista de productos</a></li>
-                    <li><a href='{% url 'producto_create' %}'>Crear nuevo producto</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Pedidos</h2>
-                <ul>
-                    <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
-                    <li><a href='{% url 'pedido_create' %}'>Crear nuevo pedido</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Componentes</h2>
-                <ul>
-                    <li><a href="/appDjango/componentes">Lista de componentes</a></li>
-                    <li><a href='{% url 'componente_create' %}'>Crear nuevo componente</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Clientes</h2>
-                <ul>
-                    <li><a href="/appDjango/clientes">Lista de clientes</a></li>
-                    <li><a href='{% url 'cliente_create' %}'>Crear nuevo cliente</a></li>
-                </ul>
-            </li>
+            <li><a href="/appDjango/productos">Lista de productos</a></li>
+            <li><a href="{% url 'producto_create' %}">Crear nuevo producto</a></li>
         </ul>
+    </div>
+    <div class="categoria">
+        <h2>📦 Pedidos 📦</h2>
+        <ul>
+            <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
+            <li><a href="{% url 'pedido_create' %}">Crear nuevo pedido</a></li>
+        </ul>
+    </div>
+    <div class="categoria">
+        <h2>🔩 Componentes 🔩</h2>
+        <ul>
+            <li><a href="/appDjango/componentes">Lista de componentes</a></li>
+            <li><a href="{% url 'componente_create' %}">Crear nuevo componente</a></li>
+        </ul>
+    </div>
+    <div class="categoria">
+        <h2>🏭 Clientes 🏭</h2>
+        <ul>
+            <li><a href="/appDjango/clientes">Lista de clientes</a></li>
+            <li><a href="{% url 'cliente_create' %}">Crear nuevo cliente</a></li>
+        </ul>
+    </div>
+</div>
+
         {% block contenido %}{% endblock %}
     </div>
 </body>
 </html>
+

@@ -18,7 +18,7 @@
                         <form action="{% url 'eliminar_producto_pedido' pedido.pk %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="producto_pedido_id" value="{{ producto_pedido.pk }}">
-                            <button type="submit">Eliminar este producto del pedido</button>
+                            <button type="submit" class="boton-borrar">Eliminar este producto del pedido</button>
                         </form>
                     </li>
                 {% endfor %}
