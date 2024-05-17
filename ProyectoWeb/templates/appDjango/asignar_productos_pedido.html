@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block contenido %}
 <form method="post">
     {% csrf_token %}
     <label for="producto_id">Producto:</label>
@@ -13,3 +15,4 @@
 
     <input type="submit" value="Asignar producto">
 </form>
+{% endblock %}

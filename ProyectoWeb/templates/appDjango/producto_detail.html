@@ -11,7 +11,7 @@
                 <li><a href="{% url 'asignar_componentes_producto' object.pk %}">Asignar componentes</a></li>
                    <form method="post" action="{% url 'producto_delete' object.pk %}">
                         {% csrf_token %}
-                        <button type="submit">Eliminar producto</button>
+                        <button type="submit" class="boton-borrar">Eliminar producto</button>
                    </form>
             </ul>
         {% else %}

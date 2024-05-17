@@ -2,16 +2,24 @@
 
 {% block contenido %}
     <h2>Detalle del pedido</h2>
-
     {% if object %}
         <ul>
             <li>Fecha pedido: {{ object.fecha_pedido }}</li>
             <li>Cliente: {{ object.cif_cliente }}</li>
             <li>Precio total: {{ object.precio_total }} €</li>
-            <h3>Productos solicitados:</h3>
+            <li><a href="{% url 'pedido_update' object.pk %}">Modificar pedido</a></li>
             <ul>
-                {% for producto in object.contenidopedido_set.all %}
-                    <li>{{ producto.referencia_producto }}: Cantidad: {{ producto.cantidad_producto }}</li>
+                {% for producto_pedido in object.contenidopedido_set.all %}
+                    <li>
+                        {{ producto_pedido.referencia_producto.nombre_producto }} ||
+                        Precio: {{ producto_pedido.referencia_producto.precio_producto }} € ||
+                        Cantidad: {{ producto_pedido.cantidad_producto }}
+                        <form action="{% url 'eliminar_producto_pedido' pedido.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="producto_pedido_id" value="{{ producto_pedido.pk }}">
+                            <button type="submit" class="boton-borrar">Eliminar este producto del pedido</button>
+                        </form>
+                    </li>
                 {% endfor %}
             </ul>
         </ul>

@@ -4,7 +4,17 @@
     <form action="{% url 'pedido_create' %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
-        {{ formulario.as_ul }}
-        <input type="submit" value="Nuevo pedido"/>
+
+        <div>
+            <label for="{{ formulario.cliente.id_for_label }}">Cliente:</label>
+            {{ formulario.cif_cliente }}
+        </div>
+        <div>
+            <label for="{{ formulario.fecha_pedido.id_for_label }}">Fecha:</label>
+            <input type="date" id="{{ formulario.fecha_pedido.id_for_label }}"
+                   name="{{ formulario.fecha_pedido.name }}" required>
+        </div>
+
+        <input type="submit" value="Nuevo pedido" class="boton-anadir"/>
     </form>
 {% endblock %}
