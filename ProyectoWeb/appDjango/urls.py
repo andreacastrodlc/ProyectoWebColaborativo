@@ -1,14 +1,15 @@
 from django.urls import path
 
+from . import views
 from .views import (ProductoListView, ProductoDetailView, ProductoCreateView, PedidoListView, PedidoCreateView,
                     PedidoDetailView, ComponenteListView, ComponenteDetailView, ComponenteCreateView,
                     asignar_componentes_producto, asignar_productos_pedido, ProductoUpdateView, ProductoDeleteView,
                     ClienteListView, ClienteDetailView, ClienteCreateView, ClienteDeleteView, ClienteUpdateView,
-                    PedidoUpdateView, EliminarProductoPedidoView)
+                    PedidoUpdateView, EliminarProductoPedidoView, login_view, registro_view)
 
 urlpatterns = [
     # urls para productos
-    path('productos/', ProductoListView.as_view(), name='index_productos'),
+    path('productos/', ProductoListView.as_view(), name='index_productos'),  # Asegúrate de que el nombre es correcto
     path('productos/<int:pk>', ProductoDetailView.as_view(), name='productos_show'),
     path('productos/eliminar/<int:pk>/', ProductoDeleteView.as_view(), name='producto_delete'),
     path('productos/modificar/<int:pk>', ProductoUpdateView.as_view(), name='producto_update'),
@@ -32,5 +33,8 @@ urlpatterns = [
     path('productos/<int:pk>/asignar_componentes/', asignar_componentes_producto, name='asignar_componentes_producto'),
     path('asignar_productos_pedido/<int:pk_pedido>', asignar_productos_pedido, name='asignar_productos_pedido'),
     path('pedidos/eliminar_producto/<int:pk_pedido>/', EliminarProductoPedidoView.as_view(),
-         name='eliminar_producto_pedido')
+         name='eliminar_producto_pedido'),
+    # urls de sesion
+    path('login/', login_view, name='login'),
+    path('registro/', views.registro_view, name='registro')
 ]

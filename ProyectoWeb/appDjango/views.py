@@ -1,12 +1,16 @@
-
-from django.db.models import Sum, F # imports que permiten realizar operaciones sobre consultas a la bbdd
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
+from pyexpat.errors import messages
 
-from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm
+from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm, RegistroForm
 
 from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido, Cliente
+
+from django.db.models import Sum, F  # imports que permiten realizar operaciones sobre consultas a la bbdd
+
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
 
 
 # VISTAS DE PRODUCTO
@@ -247,7 +251,7 @@ def asignar_componentes_producto(request, pk):
 def asignar_productos_pedido(request, pk_pedido):
     pedido = get_object_or_404(Pedido, pk=pk_pedido)
 
-# si se envia el formulario:
+    # si se envia el formulario:
     if request.method == 'POST':
         # obtener producto y cantidad introducida
         producto_id = request.POST.get('producto_id')
@@ -273,3 +277,36 @@ class EliminarProductoPedidoView(View):
         contenido_producto = get_object_or_404(Contenidopedido, pk=producto_pedido_id)
         contenido_producto.delete()
         return redirect('pedidos_show', pk=pk_pedido)
+
+
+# vistas de gestion de autenticaciones
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_staff:
+                login(request, user)
+                return redirect('index_productos')
+            else:
+                messages.error(request, 'No tienes permisos de administrador.')
+        else:
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+    return render(request, 'login.html')
+
+
+def registro_view(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Cuenta creada para {username}')
+            login(request, user)
+            return redirect('login')
+        else:
+            messages.error(request, 'Error al crear la cuenta. Verifica los datos e intenta nuevamente.')
+    else:
+        form = RegistroForm()
+    return render(request, 'registro.html', {'form': form})
