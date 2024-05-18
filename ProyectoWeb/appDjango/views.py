@@ -1,12 +1,16 @@
-
-from django.db.models import Sum, F # imports que permiten realizar operaciones sobre consultas a la bbdd
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
+from pyexpat.errors import messages
 
-from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm
+from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm, RegistroForm
 
 from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido, Cliente
+
+from django.db.models import Sum, F  # imports que permiten realizar operaciones sobre consultas a la bbdd
+
+from django.contrib import messages  # import para manejar mensajes de exito/error propios de django
+from django.contrib.auth import login, authenticate  # import para manejar los login y autenticaciones
 
 
 # VISTAS DE PRODUCTO
@@ -247,7 +251,7 @@ def asignar_componentes_producto(request, pk):
 def asignar_productos_pedido(request, pk_pedido):
     pedido = get_object_or_404(Pedido, pk=pk_pedido)
 
-# si se envia el formulario:
+    # si se envia el formulario:
     if request.method == 'POST':
         # obtener producto y cantidad introducida
         producto_id = request.POST.get('producto_id')
@@ -273,3 +277,50 @@ class EliminarProductoPedidoView(View):
         contenido_producto = get_object_or_404(Contenidopedido, pk=producto_pedido_id)
         contenido_producto.delete()
         return redirect('pedidos_show', pk=pk_pedido)
+
+
+# VISTAS DE GESTION DE USUARIOS
+# vista de inicio de sesion
+def login_view(request):
+    if request.method == 'POST':
+        # obtiene el username y la contrasena desde los datos POST
+        username = request.POST['username']
+        password = request.POST['password']
+        # autentica al usuario con las credenciales proporcionadas
+        user = authenticate(request, username=username, password=password)
+        if user is not None:  # verifica que la autenticacion sea correcta
+            if user.is_staff:  # verifica que el usuario sea admin
+                login(request, user)
+                return redirect('index_productos')  # redirige a la vista de listado de productos
+            # si el usuario no es admin:
+            else:
+                messages.error(request, 'No tienes permisos de administrador.')
+        # si la autenticacion es incorrecta:
+        else:
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+    # redirige a login.html si el metodo no es de tipo POST o si hay algun error
+    return render(request, 'login.html')
+
+
+# vista de registro
+def registro_view(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            # guarda el nuevo usuario en la base de datos
+            user = form.save()
+            # obtiene el nombre de usuario del formulario
+            username = form.cleaned_data.get('username')
+            # anade un mensaje para indicar que la cuenta ha sido creada para el usuario que la ha creado
+            messages.success(request, f'Cuenta creada para {username}')
+            # redirige al usuario a la pagina de login
+            return redirect('login')
+        else:
+            # mensaje de error si el formulario no es valido
+            messages.error(request, 'Error al crear la cuenta. Verifica los datos e intenta nuevamente.')
+    # si el metodo no es POST se crea una instancia vacia del formulario para que la pagina de registro se muestre
+    # correctamente, esto permite que la plantilla registro.html se renderice con un formulario vacio que el usuario
+    # pueda rellenar
+    else:
+        form = RegistroForm()
+    return render(request, 'registro.html', {'form': form})
