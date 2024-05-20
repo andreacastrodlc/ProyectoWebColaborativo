@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required  # import  para proteger las vistas basadas en funciones
+from django.contrib.auth.mixins import LoginRequiredMixin  # import para proteger las vistas que heredan de una clase
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
@@ -10,15 +12,17 @@ from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, C
 from django.db.models import Sum, F  # imports que permiten realizar operaciones sobre consultas a la bbdd
 
 from django.contrib import messages  # import para manejar mensajes de exito/error propios de django
-from django.contrib.auth import login, authenticate  # import para manejar los login y autenticaciones
+from django.contrib.auth import login, authenticate, logout  # import para manejar los login y autenticaciones
 
 
 # VISTAS DE PRODUCTO
 # vista para listar productos
-class ProductoListView(ListView):
+class ProductoListView(LoginRequiredMixin, ListView):
     model = Producto
     template_name = "appDjango/producto_index.html"
     context_object_name = "productos"
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista de detalle de producto
@@ -224,6 +228,7 @@ class ClienteUpdateView(UpdateView):
 
 # VISTAS CON FUNCIONES ESPECIFICAS
 # vista para asignar componentes a un producto en especifico
+@login_required(login_url='login')
 def asignar_componentes_producto(request, pk):
     # se obtiene el objeto del producto al que vamos a anadir componentes
     producto = get_object_or_404(Producto, pk=pk)
@@ -324,3 +329,8 @@ def registro_view(request):
     else:
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

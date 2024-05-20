@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: #f4f4f4;
@@ -263,4 +264,27 @@ button.boton-borrar:hover {
 }
 .derechos {
     margin-top: 20px;
+}
+
+/* -------------Estilo para el boton de cerrar sesion----------------------------------------------------------------------------------------- */
+.logout-form {
+    margin: 0;
+    background-color: #051C24;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
 }

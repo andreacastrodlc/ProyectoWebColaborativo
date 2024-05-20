@@ -36,5 +36,6 @@ urlpatterns = [
          name='eliminar_producto_pedido'),
     # urls de sesion
     path('login/', login_view, name='login'),
-    path('registro/', views.registro_view, name='registro')
+    path('registro/', views.registro_view, name='registro'),
+    path('logout/', views.logout_view, name='logout')
 ]
