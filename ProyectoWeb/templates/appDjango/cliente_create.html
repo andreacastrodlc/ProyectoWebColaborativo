@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block contenido %}
+    <h2>Nuevo cliente</h2>
+    <form action="{% url 'cliente_create' %}" method="post">
+        {% csrf_token %}
+        {{ formulario.errors }}
+        {{ formulario.as_ul }}
+        <input type="submit" value="Nuevo cliente" class="boton-anadir"/>
+    </form>
+{% endblock %}

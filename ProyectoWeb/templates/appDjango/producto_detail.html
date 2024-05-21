@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block contenido %}
+        <h2>Detalle del producto</h2>
+        {% if object %}
+            <ul>
+                <li>Nombre producto: {{ object.nombre_producto }}</li>
+                <li>Precio producto: {{ object.precio_producto }} €</li>
+                <li>Categoría: {{ object.categoria_producto }}</li>
+                <li>Descripción: {{ object.descripcion_producto }}</li>
+                <li><a href="{% url 'producto_update' object.pk %}">Modificar producto</a></li>
+                <li><a href="{% url 'asignar_componentes_producto' object.pk %}">Asignar componentes</a></li>
+                   <form method="post" action="{% url 'producto_delete' object.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="boton-borrar">Eliminar producto</button>
+                   </form>
+            </ul>
+        {% else %}
+            <p>No existe este producto.</p>
+        {% endif %}
+{% endblock %}

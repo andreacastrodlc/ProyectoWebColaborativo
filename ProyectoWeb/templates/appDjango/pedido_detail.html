@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <h2>Detalle del pedido</h2>
+    {% if object %}
+        <ul>
+            <li>Fecha pedido: {{ object.fecha_pedido }}</li>
+            <li>Cliente: {{ object.cif_cliente }}</li>
+            <li>Precio total: {{ object.precio_total }} €</li>
+            <li><a href="{% url 'pedido_update' object.pk %}">Modificar pedido</a></li>
+            <ul>
+                {% for producto_pedido in object.contenidopedido_set.all %}
+                    <li>
+                        {{ producto_pedido.referencia_producto.nombre_producto }} ||
+                        Precio: {{ producto_pedido.referencia_producto.precio_producto }} € ||
+                        Cantidad: {{ producto_pedido.cantidad_producto }}
+                        <form action="{% url 'eliminar_producto_pedido' pedido.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="producto_pedido_id" value="{{ producto_pedido.pk }}">
+                            <button type="submit" class="boton-borrar">Eliminar este producto del pedido</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </ul>
+        <a href="{% url 'asignar_productos_pedido' pk_pedido=pedido.pk %}">Asignar productos a este pedido</a>
+    {% else %}
+        <p>No existe este pedido.</p>
+    {% endif %}
+{% endblock %}

@@ -5,19 +5,66 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      {% load static %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <title>Deustronic</title>
+    <title>Deustronic S. L.</title>
 </head>
 <body>
-    <h1>Deustronic</h1>
-    <h2>Listado de Componentes</h2>
-    <ul>
-        {% for componente in lista_componentes %}
-        <li>
-            {{ componente.referencia_componente }}: {{ componente.modelo_componente }}
-        </li>
-        {% endfor %}
-    </ul>
+   <header class="site-header">
+    <img src="{% static 'imagenes/LOGO.png' %}" alt="Logo" class="header-icon">
+    <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
+    <form method="post" action="{% url 'logout' %}" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+    </form>
+   </header>
+
+    <div id="content">
+        <h2>Menú</h2>
+        <div class="cajas-menu">
+            <div class="categoria">
+                <h2>💻 Productos 💻</h2>
+                <ul>
+                    <li><a href="/appDjango/productos">Lista de productos</a></li>
+                    <li><a href="{% url 'producto_create' %}">Crear nuevo producto</a></li>
+                </ul>
+            </div>
+            <div class="categoria">
+                <h2>📦 Pedidos 📦</h2>
+                <ul>
+                    <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
+                    <li><a href="{% url 'pedido_create' %}">Crear nuevo pedido</a></li>
+                </ul>
+            </div>
+            <div class="categoria">
+                <h2>🔩 Componentes 🔩</h2>
+                <ul>
+                    <li><a href="/appDjango/componentes">Lista de componentes</a></li>
+                    <li><a href="{% url 'componente_create' %}">Crear nuevo componente</a></li>
+                </ul>
+            </div>
+            <div class="categoria">
+                <h2>🏭 Clientes 🏭</h2>
+                <ul>
+                    <li><a href="/appDjango/clientes">Lista de clientes</a></li>
+                    <li><a href="{% url 'cliente_create' %}">Crear nuevo cliente</a></li>
+                </ul>
+            </div>
+        </div>
+
+        {% block contenido %}{% endblock %}
+    </div>
+     <footer>
+        <div class="contenedor-footer">
+            <div class="contacto">
+                <h2>Contacto</h2>
+                <p>Email: Deustronic.SL@example.com</p>
+                <p>Teléfono: (+34) 945 254 269</p>
+            </div>
+        </div>
+        <div class="derechos">
+            <p>&copy; 2024 Todos los derechos reservados</p>
+        </div>
+    </footer>
 </body>
 </html>
