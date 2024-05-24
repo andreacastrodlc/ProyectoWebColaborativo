@@ -57,3 +57,12 @@ class RegistroForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+# formulario para el envio de emails
+class EmailForm(forms.Form):
+    mensaje = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        label='Tu mensaje',
+        required=True
+    )

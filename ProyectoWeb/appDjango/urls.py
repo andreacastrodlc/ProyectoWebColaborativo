@@ -37,5 +37,8 @@ urlpatterns = [
     # urls de sesion
     path('login/', login_view, name='login'),
     path('registro/', views.registro_view, name='registro'),
-    path('logout/', views.logout_view, name='logout')
+    path('logout/', views.logout_view, name='logout'),
+
+    # url envio emails
+    path('soporte/', views.enviar_mensaje_soporte, name='soporte')
 ]

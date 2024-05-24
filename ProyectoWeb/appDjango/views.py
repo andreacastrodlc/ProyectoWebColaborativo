@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required  # import  para proteger las vistas basadas en funciones
 from django.contrib.auth.mixins import LoginRequiredMixin  # import para proteger las vistas que heredan de una clase
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
 from pyexpat.errors import messages
 
-from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm, RegistroForm
+from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm, RegistroForm, EmailForm
 
 from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido, Cliente
 
@@ -334,3 +335,25 @@ def registro_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+# vista de envio de emails
+def enviar_mensaje_soporte(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            mensaje = form.cleaned_data['mensaje']
+            try:
+                send_mail(
+                    'Mensaje de Soporte',
+                    mensaje,
+                    request.user.email,
+                    ['deustronicdeusto@gmail.com']
+                )
+                messages.success(request, 'Tu mensaje ha sido enviado al equipo de soporte.')
+                return redirect('soporte')
+            except Exception as e:
+                messages.error(request, f'Error al enviar el mensaje: {e}')
+    else:
+        form = EmailForm()
+    return render(request, 'soporte.html', {'form': form})
