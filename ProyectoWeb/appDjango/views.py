@@ -5,14 +5,11 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
-from pyexpat.errors import messages
 
 from appDjango.forms import ProductoForm, PedidoForm, ComponenteForm, ClienteForm, RegistroForm, EmailForm
-
 from appDjango.models import Producto, Pedido, ComponenteProducto, Componente, Contenidopedido, Cliente
 
 from django.db.models import Sum, F  # imports que permiten realizar operaciones sobre consultas a la bbdd
-
 from django.contrib import messages  # import para manejar mensajes de exito/error propios de django
 from django.contrib.auth import login, authenticate, logout  # import para manejar los login y autenticaciones
 
@@ -28,12 +25,17 @@ class ProductoListView(LoginRequiredMixin, ListView):
 
 
 # vista de detalle de producto
-class ProductoDetailView(DetailView):
+class ProductoDetailView(LoginRequiredMixin, DetailView):
     model = Producto
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista de creacion de producto
-class ProductoCreateView(View):
+class ProductoCreateView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         formulario = ProductoForm()
         context = {'formulario': formulario}
@@ -48,16 +50,20 @@ class ProductoCreateView(View):
 
 
 # vista de eliminacion de producto
-class ProductoDeleteView(DeleteView):
+class ProductoDeleteView(LoginRequiredMixin, DeleteView):
     model = Producto
     success_url = reverse_lazy('index_productos')
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista de modificacion de producto
-class ProductoUpdateView(UpdateView):
+class ProductoUpdateView(LoginRequiredMixin, UpdateView):
     model = Producto
     template_name = 'appDjango/producto_update.html'
     form_class = ProductoForm
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
     def get(self, request, pk):
         producto = get_object_or_404(Producto, pk=pk)
@@ -78,16 +84,16 @@ class ProductoUpdateView(UpdateView):
 
 # VISTAS DE PEDIDO
 # vista para listar pedidos
-class PedidoListView(ListView):
+class PedidoListView(LoginRequiredMixin, ListView):
     model = Pedido
     template_name = "appDjango/pedido_index.html"
     context_object_name = "pedidos"
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
-# vista de detalle de pedido, en la que se calcula el precio total del propio pedido, realizado gracias a las fuentes:
-# https://stackoverflow.com/questions/53023775/simple-math-on-django-views-with-decimals
-# https://docs.djangoproject.com/en/5.0/ref/models/expressions/
-class PedidoDetailView(DetailView):
+# vista de detalle de pedido
+class PedidoDetailView(LoginRequiredMixin, DetailView):
     model = Pedido
 
     def get_context_data(self, **kwargs):
@@ -106,7 +112,10 @@ class PedidoDetailView(DetailView):
 
 
 # vista de creacion de pedido
-class PedidoCreateView(View):
+class PedidoCreateView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         formulario = PedidoForm()
         context = {'formulario': formulario}
@@ -120,11 +129,13 @@ class PedidoCreateView(View):
         return render(request, 'appDjango/pedido_create.html', {'formulario': formulario})
 
 
-# vista de modificacion de pedido, unicamente se modifica el cliente y la fecha del pedido
-class PedidoUpdateView(UpdateView):
+# vista de modificacion de pedido
+class PedidoUpdateView(LoginRequiredMixin, UpdateView):
     model = Pedido
     template_name = 'appDjango/pedido_update.html'
     form_class = PedidoForm
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
     def get(self, request, pk):
         pedido = get_object_or_404(Pedido, pk=pk)
@@ -144,6 +155,7 @@ class PedidoUpdateView(UpdateView):
 
 
 # Vista de modificacion de estado del pedido
+@login_required(login_url='login')
 def actualizar_estado_pedido(request, pk):
     if request.method == 'POST':
         pedido = get_object_or_404(Pedido, pk=pk)
@@ -158,19 +170,26 @@ def actualizar_estado_pedido(request, pk):
 
 # VISTAS DE COMPONENTE
 # vista para listar componentes
-class ComponenteListView(ListView):
+class ComponenteListView(LoginRequiredMixin, ListView):
     model = Componente
     template_name = "appDjango/componente_index.html"
     context_object_name = "componentes"
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista de detalle de componente
-class ComponenteDetailView(DetailView):
+class ComponenteDetailView(LoginRequiredMixin, DetailView):
     model = Componente
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista de creacion de componente
-class ComponenteCreateView(View):
+class ComponenteCreateView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         formulario = ComponenteForm()
         context = {'formulario': formulario}
@@ -186,19 +205,26 @@ class ComponenteCreateView(View):
 
 # VISTAS DE CLIENTE
 # vista para listar clientes
-class ClienteListView(ListView):
+class ClienteListView(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "appDjango/cliente_index.html"
     context_object_name = "clientes"
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista de detalle de cliente
-class ClienteDetailView(DetailView):
+class ClienteDetailView(LoginRequiredMixin, DetailView):
     model = Cliente
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista para crear cliente
-class ClienteCreateView(View):
+class ClienteCreateView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         formulario = ClienteForm()
         context = {'formulario': formulario}
@@ -213,16 +239,20 @@ class ClienteCreateView(View):
 
 
 # vista para eliminar cliente
-class ClienteDeleteView(DeleteView):
+class ClienteDeleteView(LoginRequiredMixin, DeleteView):
     model = Cliente
     success_url = reverse_lazy('index_clientes')
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
 
 # vista para modificar datos de un cliente
-class ClienteUpdateView(UpdateView):
+class ClienteUpdateView(LoginRequiredMixin, UpdateView):
     model = Cliente
     template_name = 'appDjango/cliente_update.html'
     form_class = ClienteForm
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
 
     def get(self, request, pk):
         cliente = get_object_or_404(Cliente, pk=pk)
@@ -268,6 +298,7 @@ def asignar_componentes_producto(request, pk):
 
 
 # vista para asignar productos a un pedido
+@login_required(login_url='login')
 def asignar_productos_pedido(request, pk_pedido):
     pedido = get_object_or_404(Pedido, pk=pk_pedido)
 
@@ -291,7 +322,10 @@ def asignar_productos_pedido(request, pk_pedido):
 
 
 # vista para eliminar productos de un pedido
-class EliminarProductoPedidoView(View):
+class EliminarProductoPedidoView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
     def post(self, request, pk_pedido):
         producto_pedido_id = request.POST.get('producto_pedido_id')
         contenido_producto = get_object_or_404(Contenidopedido, pk=producto_pedido_id)
@@ -346,12 +380,15 @@ def registro_view(request):
     return render(request, 'registro.html', {'form': form})
 
 
+# vista de cierre de sesion
+@login_required(login_url='login')
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 
 # vista de envio de emails
+@login_required(login_url='login')
 def enviar_mensaje_soporte(request):
     if request.method == 'POST':
         form = EmailForm(request.POST)

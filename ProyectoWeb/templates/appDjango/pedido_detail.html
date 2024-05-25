@@ -5,7 +5,7 @@
     {% if object %}
         <ul>
             <li>Estado: <span id="estado-pedido" class="{{ object.estado }}">{{ object.get_estado_display }}</span></li>
-            <form id="form-estado" method="post" action="{% url 'actualizar_estado_pedido' object.pk %}">
+            <form id="form-estado" method="post" action="{% url 'actualizar_estado_pedido' pedido.pk %}">
                 {% csrf_token %}
                 <label for="estado">Cambiar Estado:</label>
                 <select name="estado" id="estado">
@@ -25,7 +25,7 @@
                         {{ producto_pedido.referencia_producto.nombre_producto }} ||
                         Precio: {{ producto_pedido.referencia_producto.precio_producto }} € ||
                         Cantidad: {{ producto_pedido.cantidad_producto }}
-                        <form action="{% url 'eliminar_producto_pedido' object.pk %}" method="post">
+                        <form action="{% url 'eliminar_producto_pedido' pedido.pk %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="producto_pedido_id" value="{{ producto_pedido.pk }}">
                             <button type="submit" class="boton-borrar">Eliminar este producto del pedido</button>
