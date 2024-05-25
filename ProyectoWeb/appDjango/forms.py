@@ -60,9 +60,6 @@ class RegistroForm(UserCreationForm):
 
 
 # formulario para el envio de emails
-from django import forms
-
-
 class EmailForm(forms.Form):
     mensaje = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}),

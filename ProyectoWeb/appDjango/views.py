@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required  # import  para proteger las vistas basadas en funciones
 from django.contrib.auth.mixins import LoginRequiredMixin  # import para proteger las vistas que heredan de una clase
 from django.core.mail import send_mail
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, View, DeleteView, UpdateView
@@ -140,6 +141,19 @@ class PedidoUpdateView(UpdateView):
         else:
             context = {'formulario': formulario, 'pedido': pedido}
             return render(request, self.template_name, context)
+
+
+# Vista de modificacion de estado del pedido
+def actualizar_estado_pedido(request, pk):
+    if request.method == 'POST':
+        pedido = get_object_or_404(Pedido, pk=pk)
+        nuevo_estado = request.POST.get('estado')
+        if nuevo_estado in dict(Pedido.ESTADO_CHOICES).keys():
+            pedido.estado = nuevo_estado
+            pedido.save()
+            return JsonResponse({'success': True, 'estado': pedido.get_estado_display()})
+        return JsonResponse({'success': False, 'error': 'Estado no válido'})
+    return JsonResponse({'success': False, 'error': 'Método no permitido'})
 
 
 # VISTAS DE COMPONENTE

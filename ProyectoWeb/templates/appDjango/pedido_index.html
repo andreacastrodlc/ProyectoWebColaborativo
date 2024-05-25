@@ -8,6 +8,7 @@
                     <a href="{% url 'pedidos_show' pedido.referencia_pedido %}">
                         Ref.{{ pedido.referencia_pedido }}.-Fecha: {{ pedido.fecha_pedido }} - Cliente:
                         {{ pedido.cif_cliente.nombre_empresa_cliente }}
+                        Estado: <span>{{ pedido.get_estado_display }}</span>
                     </a>
                 </li>
             {% endfor %}
@@ -16,4 +17,3 @@
         <p>No hay pedidos creados.</p>
     {% endif %}
 {% endblock %}
-
