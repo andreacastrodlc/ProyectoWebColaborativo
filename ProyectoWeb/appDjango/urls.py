@@ -40,5 +40,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
 
     # url envio emails
-    path('soporte/', views.enviar_mensaje_soporte, name='soporte')
+    path('soporte/', views.enviar_mensaje_soporte, name='soporte'),
+    path('actualizar_estado_pedido/<int:pk>/', views.actualizar_estado_pedido, name='actualizar_estado_pedido')
 ]

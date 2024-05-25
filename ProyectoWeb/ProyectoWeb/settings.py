@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appDjango' #se importan las aplicaciones creadas a usar
+    'appDjango'  # se importan las aplicaciones creadas a usar
 ]
 
 MIDDLEWARE = [

@@ -6,6 +6,26 @@
     <title>Soporte</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+     <script>
+        // Definir las palabras prohibidas
+        const palabrasProhibidas = ["palabra1", "palabra2", "palabra3"];
+
+        // Función para validar y reemplazar palabras prohibidas en el mensaje
+        function validarMensaje(event) {
+            let mensaje = document.querySelector('textarea[name="mensaje"]').value;
+            for (let palabra of palabrasProhibidas) {
+                const regex = new RegExp(`\\b${palabra}\\b`, 'gi');
+                mensaje = mensaje.replace(regex, '*'.repeat(palabra.length));
+            }
+            document.querySelector('textarea[name="mensaje"]').value = mensaje;
+        }
+
+        // Asignar la función de validación al evento input del textarea
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('textarea[name="mensaje"]');
+            textarea.addEventListener('input', validarMensaje);
+        });
+    </script>
 </head>
 <body>
     <header class="site-header">

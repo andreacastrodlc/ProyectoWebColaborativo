@@ -26,10 +26,17 @@ class Pedido(models.Model):
     cif_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     # default para que no haya errores al crear un nuevo producto sin introducir el precio total
+    ESTADO_CHOICES = [
+        ("Pendiente", "Pendiente"),
+        ("En proceso", "En proceso"),
+        ("Enviado", "Enviado"),
+        ("Completado", "Completado")
+    ]
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='Pendiente')
 
     def __str__(self):
         return (f"Código de referencia: {self.referencia_pedido}, Fecha de pedido: {self.fecha_pedido}, "
-                f"{self.cif_cliente}, Precio total: {self.precio_total}")
+                f"{self.cif_cliente}, Precio total: {self.precio_total}, Estado: {self.estado}")
 
     class Meta:
         verbose_name_plural = "Pedidos"

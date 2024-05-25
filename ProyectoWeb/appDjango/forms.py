@@ -66,3 +66,10 @@ class EmailForm(forms.Form):
         label='Tu mensaje',
         required=True
     )
+
+    def clean_mensaje(self):
+        mensaje = self.cleaned_data.get('mensaje')
+        palabras_prohibidas = ["palabra1", "palabra2", "palabra3"]
+        for palabra in palabras_prohibidas:
+            mensaje = mensaje.replace(palabra, '*' * len(palabra))
+        return mensaje
