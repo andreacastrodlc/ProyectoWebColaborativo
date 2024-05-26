@@ -243,6 +243,7 @@ button.boton-borrar:hover {
         font-size: 20px;
     }
 }
+/* -------------Estilo para el Footer-------------------------------------------------------------------------------------------- */
 
  footer {
     background-color: #051C24;
@@ -265,6 +266,11 @@ button.boton-borrar:hover {
 .derechos {
     margin-top: 20px;
 }
+
+.soporte {
+    margin-top: 20px;
+}
+
 
 /* -------------Estilo para el boton de cerrar sesion----------------------------------------------------------------------------------------- */
 .logout-form {
