@@ -4,7 +4,7 @@ Link del repositorio: https://github.com/andreacastrodlc/ProyectoWebColaborativo
 A continuación mostramos todas nuestras urls
 ```
 urlpatterns = [
-    # urls para productos
+       # urls para productos
     path('productos/', ProductoListView.as_view(), name='index_productos'),
     path('productos/<int:pk>', ProductoDetailView.as_view(), name='productos_show'),
     path('productos/eliminar/<int:pk>/', ProductoDeleteView.as_view(), name='producto_delete'),
@@ -29,7 +29,15 @@ urlpatterns = [
     path('productos/<int:pk>/asignar_componentes/', asignar_componentes_producto, name='asignar_componentes_producto'),
     path('asignar_productos_pedido/<int:pk_pedido>', asignar_productos_pedido, name='asignar_productos_pedido'),
     path('pedidos/eliminar_producto/<int:pk_pedido>/', EliminarProductoPedidoView.as_view(),
-         name='eliminar_producto_pedido')
+         name='eliminar_producto_pedido'),
+    # urls de sesion
+    path('login/', login_view, name='login'),
+    path('registro/', views.registro_view, name='registro'),
+    path('logout/', views.logout_view, name='logout'),
+
+    # url envio emails
+    path('soporte/', views.enviar_mensaje_soporte, name='soporte'),
+    path('actualizar_estado_pedido/<int:pk>/', views.actualizar_estado_pedido, name='actualizar_estado_pedido')
 ]
 ```
 # Implementaciones extras añadidas.
@@ -188,6 +196,219 @@ class EliminarProductoPedidoView(View):
         contenido_producto.delete()
         return redirect('pedidos_show', pk=pk_pedido)
 ```
+
+# Funcionalidades JavaScript
+Se han implementado las siguientes funcionalidades de JS:
+1- Aumento/ disminución tamaño texto
+    Para modificar el tamaño de la página se han añadido dos botones a la plantilla base para que extienda sobre el resto:
+
+```
+<button id="btn-aumentar">🔎➕</button>
+        <button id="btn-disminuir">🔎➖</button>
+```
+En el archivo de JavaScript hemos añadido un EventListener para cuando el documento HTML esté cargado, asegurando que el código se ejecute después de que todos los elementos del DOM estén disponibles.
+Seleccionamos  los botones de aumentar y disminuir el tamaño del texto utilizando sus IDs. 
+Al hacer clic en el botón "Aumentar", se seleccionan todos los elementos h1, h2 y p en la página, se obtiene su tamaño de fuente actual y se incrementa en un 20% (* 1.2).
+Para el "Disminuir", se seleccionan todos los elementos h1, h2 y p en la página, se obtiene su tamaño de fuente actual y se reduce en un 16.67% (/ 1.2).
+
+```
+document.addEventListener("DOMContentLoaded", function() {
+    const botonAumentar = document.getElementById("btn-aumentar");
+    const botonDisminuir = document.getElementById("btn-disminuir");
+
+    botonAumentar.addEventListener("click", function() {
+        const elements = document.querySelectorAll("h1, h2, p");
+
+        elements.forEach(element => {
+            const currentFontSize = window.getComputedStyle(element).fontSize;
+            element.style.fontSize = parseFloat(currentFontSize) * 1.2 + "px";
+        });
+    });
+
+    botonDisminuir.addEventListener("click", function() {
+        const elements = document.querySelectorAll("h1, h2, p");
+
+        elements.forEach(element => {
+            const currentFontSize = window.getComputedStyle(element).fontSize;
+            element.style.fontSize = parseFloat(currentFontSize) / 1.2 + "px";
+        });
+    });
+});
+
+```
+
+
+2- Validación formulario
+Hemos añadido una funcionalidad de validación al formulario de soporte en la página web.
+
+El archivo JS correspondiente incluye una funcionalidad parecida a la de la modificación del tamaño:
+La función se ejecuta cuando el documento HTML ha sido cargado y parseado.
+```
+document.addEventListener("DOMContentLoaded", function() {
+
+```
+
+
+```
+const form = document.getElementById("support-form");
+const mensajeError = document.getElementById("mensaje-error");
+const mensajeResaltado = document.getElementById("mensaje-resaltado");
+const palabrasProhibidas = ["palabra1", "palabra2", "palabra3"];
+```
+
+
+Se añade EventListener al formulario y se obtiene y comprueba el mensaje del usuario:
+```
+form.addEventListener("submit", function(event) {
+const mensajeInput = document.querySelector("textarea[name='mensaje']");
+const textoMensaje = mensajeInput.value;
+let tienePalabrasProhibidas = false;
+let palabrasEncontradas = [];
+
+```
+Recorremos las palabras prohibidas y se comprueba si están presentes en el mensaje del usuario utilizando expresiones regulares.
+Si se encuentran, se marcan como encontradas y se añaden a la lista de palabras encontradas.
+
+```
+palabrasProhibidas.forEach(palabra => {
+    const regex = new RegExp(`\\b(${palabra})\\b`, 'gi');
+    if (regex.test(textoMensaje)) {
+        tienePalabrasProhibidas = true;
+        palabrasEncontradas.push(`<span class="highlight">${palabra}</span>`);
+    }
+});
+
+```
+
+Por último, mostramos mensajes de error y prevenimos el envío del formulario:
+```
+if (tienePalabrasProhibidas) {
+    event.preventDefault();
+    mensajeError.style.display = "block";
+    mensajeResaltado.style.display = "block";
+    mensajeResaltado.innerHTML = palabrasEncontradas.join(', ');
+} else {
+    mensajeError.style.display = "none";
+    mensajeResaltado.style.display = "none";
+}
+
+
+```
+
+
+3- Actualizar estado del pedido asíncronamente:
+Añadimos interactividad al formulario en la página web, permitiendo actualizar el estado de un pedido sin recargar la página
+
+Esperar a que el DOM esté Cargado:
+```
+document.addEventListener("DOMContentLoaded", function() {
+```
+La función se ejecuta cuando el documento HTML ha sido completamente cargado y parseado.
+
+Seleccionar Elementos del DOM:
+
+```
+const form = document.getElementById("form-estado");
+const btnActualizar = document.getElementById("btn-actualizar");
+```
+Seleccionamos el formulario y el botón de actualización por sus IDs.
+Prevenir el Envío del Formulario por Defecto:
+
+```
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+});
+```
+Se previene el comportamiento por defecto del envío del formulario para manejarlo con JavaScript.
+Añadir Event Listener al Botón de Actualización:
+
+```
+btnActualizar.addEventListener("click", function(event) {
+    event.preventDefault();
+    const estado = document.getElementById("estado").value;
+    const url = form.action;
+```
+Prevenimos el comportamiento por defecto del botón de actualización.
+Obtenemose el valor del nuevo estado del pedido desde un campo de entrada y la URL de acción del formulario.
+Enviar la Solicitud Fetch:
+
+```
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+        'estado': estado
+    })
+})
+.then(response => response.json())
+.then(data => {
+```
+Envío de solicitud POST a la URL del formulario usando fetch.
+Encabezados para el token CSRF y el tipo de contenido.
+Envío del nuevo estado del pedido en el cuerpo de la solicitud.
+Procesar la Respuesta del Servidor:
+
+```
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        const estadoSpan = document.getElementById("estado-pedido");
+        estadoSpan.textContent = data.estado;
+        const pedidoItem = document.querySelector('.pedido-item');
+        pedidoItem.className = 'pedido-item pedido-' + estado.replace(" ", "_").toLowerCase();
+    } else {
+        alert('Error: ' + data.error);
+    }
+})
+.catch(error => console.error('Error:', error));
+```
+Si la respuesta del servidor indica éxito (data.success), se actualiza el contenido del elemento que muestra el estado del pedido.
+Se actualiza también la clase del elemento del pedido para reflejar visualmente el nuevo estado.
+Si hay un error, se muestra una alerta con el mensaje de error.
+Se maneja cualquier error en la solicitud fetch y se imprime en la consola.
+
+
+
+
+4- Toogle para mostrar y ocultar
+
+Esperar a que el DOM esté Cargado:
+
+```
+document.addEventListener("DOMContentLoaded", function() {
+```
+La función se ejecuta cuando el documento HTML ha sido completamente cargado y parseado.
+Seleccionar Elementos del DOM:
+
+```
+const toggleButton = document.getElementById("btn-toggle");
+const infoBlock = document.getElementById("info");
+```
+Seleccionamos el botón de alternancia/ toogle y el bloque de información por sus IDs.
+Añadir Event Listener al Botón de Alternancia:
+
+```
+toggleButton.addEventListener("click", function() {
+```
+Añadimos un event listener para el evento click del botón de alternancia.
+Alternar la Visibilidad del Bloque de Información:
+
+```
+if (infoBlock.style.display === "none" || infoBlock.style.display === "") {
+    infoBlock.style.display = "block";
+    toggleButton.textContent = "Ocultar Información";
+} else {
+    infoBlock.style.display = "none";
+    toggleButton.textContent = "Expandir Información";
+}
+```
+Verificamos si el bloque de información está actualmente oculto (display: none) o sin estilo aplicado (display: "").
+Si el bloque está oculto, se cambia su estilo a display: block para mostrarlo y se actualiza el texto del botón a "Ocultar Información".
+Si el bloque está visible, se cambia su estilo a display: none para ocultarlo y se actualiza el texto del botón a "Expandir Información".
+
 # Implementaciones no operativas o con errores especificadas si las hubiera.
 
 
