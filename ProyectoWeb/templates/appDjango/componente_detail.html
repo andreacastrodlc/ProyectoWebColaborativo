@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block contenido %}
-        <h2>Detalle del componente</h2>
-        {% if object %}
-            <ul>
-                <li>Referencia del componente: {{ object.referencia_componente }}</li>
-                <li>Nombre componente: {{ object.modelo_componente }}</li>
-                <li>Marca: {{ object.marca_componente }}</li>
-            </ul>
-        {% else %}
-            <p>No existe este componente.</p>
-        {% endif %}
+    <h2>Detalle del componente</h2>
+    {% if object %}
+        <ul>
+            <li>Referencia del componente: {{ object.referencia_componente }}</li>
+            <li>Nombre componente: {{ object.modelo_componente }}</li>
+            <li>Marca: {{ object.marca_componente }}</li>
+        </ul>
+    {% else %}
+        <p>No existe este componente.</p>
+    {% endif %}
 {% endblock %}

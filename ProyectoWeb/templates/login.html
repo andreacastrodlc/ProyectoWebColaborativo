@@ -6,44 +6,44 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
 </head>
 <body>
-    <header class="site-header">
-        <img src="{% static 'imagenes/LOGO.png' %}" alt="Logo" class="header-icon">
-        <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
-    </header>
-    <h2>Inicio de Sesión</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <div class="form-buttons">
-            <button type="submit" class="btn-enviar">Iniciar Sesión</button>
-            <a href="{% url 'registro' %}" class="link-registro">Registro</a>
+<header class="site-header">
+    <img src="{% static 'imagenes/LOGO.png' %}" alt="Logo" class="header-icon">
+    <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
+</header>
+<h2>Inicio de Sesión</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Nombre de usuario:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <div class="form-buttons">
+        <button type="submit" class="btn-enviar">Iniciar Sesión</button>
+        <a href="{% url 'registro' %}" class="link-registro">Registro</a>
+    </div>
+</form>
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<footer>
+    <div class="contenedor-footer">
+        <div class="contacto">
+            <h2>Contacto</h2>
+            <p>Email: Deustronic.SL@example.com</p>
+            <p>Teléfono: (+34) 945 254 269</p>
         </div>
-    </form>
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <footer>
-        <div class="contenedor-footer">
-            <div class="contacto">
-                <h2>Contacto</h2>
-                <p>Email: Deustronic.SL@example.com</p>
-                <p>Teléfono: (+34) 945 254 269</p>
-            </div>
-            <div class="soporte">
-                <h2>Soporte</h2>
-                <a href="/appDjango/soporte">Consultas</a>
-            </div>
+        <div class="soporte">
+            <h2>Soporte</h2>
+            <a href="/appDjango/soporte">Consultas</a>
         </div>
-        <div class="derechos">
-            <p>&copy; 2024 Todos los derechos reservados</p>
-        </div>
-    </footer>
+    </div>
+    <div class="derechos">
+        <p>&copy; 2024 Todos los derechos reservados</p>
+    </div>
+</footer>
 </body>
 </html>

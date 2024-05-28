@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block contenido %}
     <h2>Editar producto</h2>
-    <form action="{% url 'producto_update' producto.referencia_producto%}" method="post">
+    <form action="{% url 'producto_update' producto.referencia_producto %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
         {{ formulario.as_ul }}

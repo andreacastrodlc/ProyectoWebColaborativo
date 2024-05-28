@@ -10,7 +10,8 @@
                 <label for="estado">Cambiar Estado:</label>
                 <select name="estado" id="estado">
                     {% for estado in object.ESTADO_CHOICES %}
-                        <option value="{{ estado.0 }}" {% if object.estado == estado.0 %}selected{% endif %}>{{ estado.1 }}</option>
+                        <option value="{{ estado.0 }}"
+                                {% if object.estado == estado.0 %}selected{% endif %}>{{ estado.1 }}</option>
                     {% endfor %}
                 </select>
                 <button type="submit" id="btn-actualizar">Actualizar Estado</button>

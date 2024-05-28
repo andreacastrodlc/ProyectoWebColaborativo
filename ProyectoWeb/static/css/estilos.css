@@ -47,13 +47,16 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s, box-shadow 0.3s;
 }
+
 .categoria:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
+
 .categoria h2 {
     text-align: center;
 }
+
 .categoria ul {
     list-style: none;
     padding: 0;
@@ -69,6 +72,7 @@ body {
     text-decoration: none;
     transition: background-color 0.2s;
 }
+
 .categoria ul li a:hover {
     background-color: #d1e0e0;
 }
@@ -274,6 +278,7 @@ footer {
     width: 30%;
     text-align: center;
 }
+
 .derechos {
     margin-top: 20px;
 }

@@ -10,69 +10,69 @@
     <title>Deustronic S. L.</title>
 </head>
 <body>
-   <header class="site-header">
+<header class="site-header">
     <img src="{% static 'imagenes/LOGO.png' %}" alt="Logo" class="header-icon">
     <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
     <form method="post" action="{% url 'logout' %}" class="logout-form">
         {% csrf_token %}
         <button type="submit" class="btn-logout">Cerrar Sesión</button>
     </form>
-   </header>
+</header>
 
-    <div id="content">
-        <h2>Menú</h2>
-        <div class="cajas-menu">
-            <div class="categoria">
-                <h2>💻 Productos 💻</h2>
-                <ul>
-                    <li><a href="/appDjango/productos">Lista de productos</a></li>
-                    <li><a href="{% url 'producto_create' %}">Crear nuevo producto</a></li>
-                </ul>
-            </div>
-            <div class="categoria">
-                <h2>📦 Pedidos 📦</h2>
-                <ul>
-                    <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
-                    <li><a href="{% url 'pedido_create' %}">Crear nuevo pedido</a></li>
-                </ul>
-            </div>
-            <div class="categoria">
-                <h2>🔩 Componentes 🔩</h2>
-                <ul>
-                    <li><a href="/appDjango/componentes">Lista de componentes</a></li>
-                    <li><a href="{% url 'componente_create' %}">Crear nuevo componente</a></li>
-                </ul>
-            </div>
-            <div class="categoria">
-                <h2>🏭 Clientes 🏭</h2>
-                <ul>
-                    <li><a href="/appDjango/clientes">Lista de clientes</a></li>
-                    <li><a href="{% url 'cliente_create' %}">Crear nuevo cliente</a></li>
-                </ul>
-            </div>
+<div id="content">
+    <h2>Menú</h2>
+    <div class="cajas-menu">
+        <div class="categoria">
+            <h2>💻 Productos 💻</h2>
+            <ul>
+                <li><a href="/appDjango/productos">Lista de productos</a></li>
+                <li><a href="{% url 'producto_create' %}">Crear nuevo producto</a></li>
+            </ul>
         </div>
-        <button id="btn-aumentar">🔎➕</button>
-        <button id="btn-disminuir">🔎➖</button>
-        {% block contenido %}{% endblock %}
+        <div class="categoria">
+            <h2>📦 Pedidos 📦</h2>
+            <ul>
+                <li><a href="/appDjango/pedidos">Lista de pedidos</a></li>
+                <li><a href="{% url 'pedido_create' %}">Crear nuevo pedido</a></li>
+            </ul>
+        </div>
+        <div class="categoria">
+            <h2>🔩 Componentes 🔩</h2>
+            <ul>
+                <li><a href="/appDjango/componentes">Lista de componentes</a></li>
+                <li><a href="{% url 'componente_create' %}">Crear nuevo componente</a></li>
+            </ul>
+        </div>
+        <div class="categoria">
+            <h2>🏭 Clientes 🏭</h2>
+            <ul>
+                <li><a href="/appDjango/clientes">Lista de clientes</a></li>
+                <li><a href="{% url 'cliente_create' %}">Crear nuevo cliente</a></li>
+            </ul>
+        </div>
     </div>
-     <footer>
-        <div class="contenedor-footer">
-            <div class="contacto">
-                <h2>Contacto</h2>
-                <p>Email: Deustronic.SL@example.com</p>
-                <p>Teléfono: (+34) 945 254 269</p>
-            </div>
-            <div class="soporte">
-                <h2>Soporte</h2>
-                <a href="/appDjango/soporte">Consultas</a>
-            </div>
+    <button id="btn-aumentar">🔎➕</button>
+    <button id="btn-disminuir">🔎➖</button>
+    {% block contenido %}{% endblock %}
+</div>
+<footer>
+    <div class="contenedor-footer">
+        <div class="contacto">
+            <h2>Contacto</h2>
+            <p>Email: Deustronic.SL@example.com</p>
+            <p>Teléfono: (+34) 945 254 269</p>
         </div>
-        <div class="derechos">
-            <p>&copy; 2024 Todos los derechos reservados</p>
+        <div class="soporte">
+            <h2>Soporte</h2>
+            <a href="/appDjango/soporte">Consultas</a>
         </div>
-    </footer>
-    <script src="{% static 'js/cambiar_texto.js' %}"></script>
-    <script src="{% static 'js/mostrar_info.js' %}"></script>
-    <script src="{% static 'js/actualizar_estado_pedido.js' %}"></script>
+    </div>
+    <div class="derechos">
+        <p>&copy; 2024 Todos los derechos reservados</p>
+    </div>
+</footer>
+<script src="{% static 'js/cambiar_texto.js' %}"></script>
+<script src="{% static 'js/mostrar_info.js' %}"></script>
+<script src="{% static 'js/actualizar_estado_pedido.js' %}"></script>
 </body>
 </html>

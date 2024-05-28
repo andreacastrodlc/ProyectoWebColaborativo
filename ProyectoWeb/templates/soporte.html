@@ -9,44 +9,44 @@
     <script src="{% static 'js/validacion_formulario.js' %}"></script>
 </head>
 <body>
-    <header class="site-header">
-        <img src="{% static 'imagenes/LOGO.png' %}" alt="Logo" class="header-icon">
-        <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
-        <form method="post" action="{% url 'logout' %}" class="logout-form">
-            {% csrf_token %}
-            <button type="submit" class="btn-logout">Cerrar Sesión</button>
-        </form>
-    </header>
+<header class="site-header">
+    <img src="{% static 'imagenes/LOGO.png' %}" alt="Logo" class="header-icon">
+    <h1>⚙️Gestor - Deustronic S. L.⚙️</h1>
+    <form method="post" action="{% url 'logout' %}" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="btn-logout">Cerrar Sesión</button>
+    </form>
+</header>
 
-    <div id="content">
-        <h2>Mensaje de soporte</h2>
-        <form method="post" id="support-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn-enviar">Enviar</button>
-        </form>
-        <p id="mensaje-error" style="display:none;">No se puede enviar el mensaje con la/s siguiente/s palabra/s:</p>
-        <div id="mensaje-resaltado" style="display:none;"></div>
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+<div id="content">
+    <h2>Mensaje de soporte</h2>
+    <form method="post" id="support-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-enviar">Enviar</button>
+    </form>
+    <p id="mensaje-error" style="display:none;">No se puede enviar el mensaje con la/s siguiente/s palabra/s:</p>
+    <div id="mensaje-resaltado" style="display:none;"></div>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<footer>
+    <div class="contenedor-footer">
+        <div class="contacto">
+            <h2>Contacto</h2>
+            <p>Email: Deustronic.SL@example.com</p>
+            <p>Teléfono: (+34) 945 254 269</p>
+        </div>
     </div>
-
-    <footer>
-        <div class="contenedor-footer">
-            <div class="contacto">
-                <h2>Contacto</h2>
-                <p>Email: Deustronic.SL@example.com</p>
-                <p>Teléfono: (+34) 945 254 269</p>
-            </div>
-        </div>
-        <div class="derechos">
-            <p>&copy; 2024 Todos los derechos reservados</p>
-        </div>
-    </footer>
+    <div class="derechos">
+        <p>&copy; 2024 Todos los derechos reservados</p>
+    </div>
+</footer>
 </body>
 </html>

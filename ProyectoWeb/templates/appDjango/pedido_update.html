@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block contenido %}
     <h2>Editar pedido</h2>
-    <form action="{% url 'pedido_update' pedido.referencia_pedido%}" method="post">
+    <form action="{% url 'pedido_update' pedido.referencia_pedido %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
         {{ formulario.as_ul }}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block contenido %}
     <h2>Editar cliente</h2>
-    <form action="{% url 'cliente_update' cliente.cif_cliente%}" method="post">
+    <form action="{% url 'cliente_update' cliente.cif_cliente %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
         {{ formulario.as_ul }}

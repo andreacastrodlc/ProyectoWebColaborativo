@@ -7,7 +7,8 @@
         <label for="componentes">Componentes disponibles:</label>
         <select name="componentes" multiple> <!--multiple para que se puedan escoger mas de 1 componente-->
             {% for componente in componentes %}
-                <option value="{{ componente.pk }}">{{ componente.modelo_componente }}</option><!--valor que se obtiene pk de componente y valor visible el modelo del componente-->
+                <option value="{{ componente.pk }}">{{ componente.modelo_componente }}</option>
+                <!--valor que se obtiene pk de componente y valor visible el modelo del componente-->
             {% endfor %}
         </select>
         <input type="submit" value="Asignar componentes">
@@ -21,7 +22,8 @@
     </h3>
     <ul>
         {% for componente_asignado in componentes_asignados %}
-            <li>{{ componente_asignado.referencia_componente.modelo_componente }}</li><!--muestra el modelo de los componentes que el producto tiene asignado-->
+            <li>{{ componente_asignado.referencia_componente.modelo_componente }}</li>
+            <!--muestra el modelo de los componentes que el producto tiene asignado-->
         {% endfor %}
     </ul>
 {% endblock %}

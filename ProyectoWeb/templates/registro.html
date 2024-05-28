@@ -6,20 +6,20 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
 </head>
 <body>
-    <h2>Registro</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"class="btn-enviar">Registrar</button>
-    </form>
-    <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="link-registro">Inicia sesión aquí</a>.</p>
-    <!-- Mostrar mensajes de error o exito si existen -->
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+<h2>Registro</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-enviar">Registrar</button>
+</form>
+<p>¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="link-registro">Inicia sesión aquí</a>.</p>
+<!-- Mostrar mensajes de error o exito si existen -->
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 </body>
 </html>
