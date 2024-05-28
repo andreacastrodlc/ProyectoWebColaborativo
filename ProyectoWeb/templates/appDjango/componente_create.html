@@ -4,7 +4,7 @@
     <form action="{% url 'componente_create' %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
-        {{ formulario.as_ul }}
+        {{ formulario.as_p }}
         <input type="submit" value="Nuevo componente" class="boton-anadir"/>
     </form>
 

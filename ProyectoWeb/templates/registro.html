@@ -10,9 +10,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Registrar</button>
+        <button type="submit"class="btn-enviar">Registrar</button>
     </form>
-    <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a>.</p>
+    <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="link-registro">Inicia sesión aquí</a>.</p>
     <!-- Mostrar mensajes de error o exito si existen -->
     {% if messages %}
         <ul>

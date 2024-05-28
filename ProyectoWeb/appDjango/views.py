@@ -93,6 +93,8 @@ class PedidoListView(LoginRequiredMixin, ListView):
 
 
 # vista de detalle de pedido
+# https://stackoverflow.com/questions/53023775/simple-math-on-django-views-with-decimals
+# https://docs.djangoproject.com/en/5.0/ref/models/expressions/
 class PedidoDetailView(LoginRequiredMixin, DetailView):
     model = Pedido
 

@@ -6,26 +6,7 @@
     <title>Soporte</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-     <script>
-        // Definir las palabras prohibidas
-        const palabrasProhibidas = ["palabra1", "palabra2", "palabra3"];
-
-        // Función para validar y reemplazar palabras prohibidas en el mensaje
-        function validarMensaje(event) {
-            let mensaje = document.querySelector('textarea[name="mensaje"]').value;
-            for (let palabra of palabrasProhibidas) {
-                const regex = new RegExp(`\\b${palabra}\\b`, 'gi');
-                mensaje = mensaje.replace(regex, '*'.repeat(palabra.length));
-            }
-            document.querySelector('textarea[name="mensaje"]').value = mensaje;
-        }
-
-        // Asignar la función de validación al evento input del textarea
-        document.addEventListener('DOMContentLoaded', () => {
-            const textarea = document.querySelector('textarea[name="mensaje"]');
-            textarea.addEventListener('input', validarMensaje);
-        });
-    </script>
+    <script src="{% static 'js/validacion_formulario.js' %}"></script>
 </head>
 <body>
     <header class="site-header">
@@ -39,11 +20,13 @@
 
     <div id="content">
         <h2>Mensaje de soporte</h2>
-        <form method="post">
+        <form method="post" id="support-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Enviar</button>
+            <button type="submit" class="btn-enviar">Enviar</button>
         </form>
+        <p id="mensaje-error" style="display:none;">No se puede enviar el mensaje con la/s siguiente/s palabra/s:</p>
+        <div id="mensaje-resaltado" style="display:none;"></div>
         {% if messages %}
             <ul>
                 {% for message in messages %}

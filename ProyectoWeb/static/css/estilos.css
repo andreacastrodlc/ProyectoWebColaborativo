@@ -1,4 +1,6 @@
+/* ---------------------------------ESTILOS GLOBALES-------------------------------------------- */
 
+/* Estilo general del body */
 body {
     font-family: 'Open Sans', Arial, sans-serif;
     background-color: #f4f4f4;
@@ -8,6 +10,7 @@ body {
     padding: 0;
 }
 
+/* Contenedor principal */
 #content {
     width: 90%;
     max-width: 1500px;
@@ -17,7 +20,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-/* ----------------------------Cuadro del MENU principal--------------------------------------------------------------------------------- */
+
+/* ---------------------------------MENU PRINCIPAL--------------------------------------------- */
+
+/* Contenedor del menú principal */
 .cajas-menu {
     display: flex;
     justify-content: space-around;
@@ -29,7 +35,10 @@ body {
     margin: 20px auto;
     width: 95%;
 }
-/* ---------------------Estilo del Cuadro secundario del MENU--------------------------------------------------------------------------- */
+
+/* ---------------------------------MENU SECUNDARIO-------------------------------------------- */
+
+/* Estilo de las categorías del menú */
 .categoria {
     background-color: #051C24;
     border: 1px solid #2c51e3;
@@ -38,16 +47,13 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s, box-shadow 0.3s;
 }
-/* --------------------------------Sombreado-------------------------------------------------------------------------------------------- */
 .categoria:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
-/* ------Centrar los títulos dentro de las categorías----------------------------------------------------------------------------------- */
 .categoria h2 {
     text-align: center;
 }
-/* ------Estilos adicionales para mejorar la estetica del MENU-------------------------------------------------------------------------- */
 .categoria ul {
     list-style: none;
     padding: 0;
@@ -63,15 +69,16 @@ body {
     text-decoration: none;
     transition: background-color 0.2s;
 }
-/* ------Cambio de color al pasar el ratón--------------------------------------------------------------------------------------------- */
 .categoria ul li a:hover {
     background-color: #d1e0e0;
 }
+
 
 h1, h2 {
     color: #68adf3;
     font-weight: normal;
 }
+
 
 h1 {
     font-size: 2.5rem;
@@ -108,41 +115,12 @@ ul li a {
     text-decoration: none;
 }
 
-
-.cajas-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.categoria {
-    margin: 0 10px;
-    background-color: #051C24;;
-    border-radius: 8px;
-    padding: 20px;
-}
-
-
-.categoria ul {
-    padding: 0;
-}
-
-.categoria h2 {
-    margin: 0 0 10px;
-}
-
-.categoria ul li {
-    list-style: none;
-    margin-bottom: 5px;
-}
-
-
-/* ------Sombreado de los botones principales------------------------------------------------------------------------------------------- */
 ul li:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* -------------Estructura del Formularios Creación Productos,Clientes y Pedidos-------------------------------------------------------- */
+/* ---------------------------------FORMULARIOS-------------------------------------------- */
+
 form {
     margin: 20px auto;
     padding: 20px;
@@ -174,7 +152,6 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* -------------Estilos para los botones submit----------------------------------------------------------------------------------- */
 input[type="submit"].boton-anadir {
     background-color: #14161c;
     color: white;
@@ -204,7 +181,40 @@ button.boton-borrar {
 button.boton-borrar:hover {
     background-color: #bd2130;
 }
-/* -------------Estilo para el Header y Logo----------------------------------------------------------------------------------------- */
+
+button.btn-enviar {
+    background-color: #3bbb94;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+}
+
+button.btn-enviar:hover {
+    background-color: #1e7e34;
+}
+
+button#btn-aumentar, button#btn-disminuir {
+    background-color: #a1a1a1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px;
+    font-size: 1rem;
+}
+
+button#btn-aumentar:hover, button#btn-disminuir:hover {
+    background-color: #66b9d5;
+}
+
+/* ---------------------------------HEADER Y LOGO-------------------------------------------- */
+
 .site-header {
     display: flex;
     align-items: center;
@@ -227,7 +237,6 @@ button.boton-borrar:hover {
     font-weight: 700;
 }
 
-
 @media (max-width: 768px) {
     .site-header {
         flex-direction: column;
@@ -243,9 +252,10 @@ button.boton-borrar:hover {
         font-size: 20px;
     }
 }
-/* -------------Estilo para el Footer-------------------------------------------------------------------------------------------- */
 
- footer {
+/* ---------------------------------FOOTER-------------------------------------------- */
+
+footer {
     background-color: #051C24;
     color: #fff;
     padding: 20px 0;
@@ -259,7 +269,8 @@ button.boton-borrar:hover {
     max-width: 1200px;
     margin: auto;
 }
- .contacto{
+
+.contacto {
     width: 30%;
     text-align: center;
 }
@@ -271,8 +282,36 @@ button.boton-borrar:hover {
     margin-top: 20px;
 }
 
+.soporte a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    transition: color 0.3s, background-color 0.3s;
+}
 
-/* -------------Estilo para el boton de cerrar sesion----------------------------------------------------------------------------------------- */
+.form-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.link-registro {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #ffffff;
+    background-color: #007BFF;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.link-registro:hover {
+    background-color: #0056b3;
+}
+
+/* ---------------------------------BOTÓN CERRAR SESIÓN-------------------------------------------- */
+
 .logout-form {
     margin: 0;
     background-color: #051C24;

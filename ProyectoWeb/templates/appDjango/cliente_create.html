@@ -4,7 +4,7 @@
     <form action="{% url 'cliente_create' %}" method="post">
         {% csrf_token %}
         {{ formulario.errors }}
-        {{ formulario.as_ul }}
+        {{ formulario.as_p }}
         <input type="submit" value="Nuevo cliente" class="boton-anadir"/>
     </form>
 {% endblock %}
