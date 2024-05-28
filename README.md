@@ -409,6 +409,99 @@ Verificamos si el bloque de información está actualmente oculto (display: none
 Si el bloque está oculto, se cambia su estilo a display: block para mostrarlo y se actualiza el texto del botón a "Ocultar Información".
 Si el bloque está visible, se cambia su estilo a display: none para ocultarlo y se actualiza el texto del botón a "Expandir Información".
 
+# Funcionalidades python
+A continuación mostramos las funcionalidades específicas de python
+
+
+Autenticación de Usuarios:
+
+```
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index_productos')
+        else:
+            return render(request, 'login.html', {'error': 'Usuario o contraseña incorrectos'})
+    else:
+        return render(request, 'login.html')
+
+def registro_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('index_productos')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registro.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+```
+URL's para la gestión de usuarios:
+```
+urlpatterns = [
+    # URLs de sesión
+    path('login/', login_view, name='login'),
+    path('registro/', views.registro_view, name='registro'),
+    path('logout/', views.logout_view, name='logout'),
+]
+```
+
+
+Envío de emails:
+
+```
+from django.core.mail import send_mail
+from django.conf import settings
+
+def enviar_mensaje_soporte(request):
+    if request.method == 'POST':
+        asunto = request.POST['asunto']
+        mensaje = request.POST['mensaje']
+        email_remitente = request.POST['email']
+        email_destinatario = [settings.EMAIL_HOST_USER]
+        
+        send_mail(asunto, mensaje, email_remitente, email_destinatario)
+        return render(request, 'soporte.html', {'mensaje_exito': 'Correo enviado exitosamente'})
+    return render(request, 'soporte.html')
+
+```
+
+URL's para el envío de emails:
+```
+urlpatterns = [
+    # URL envío de emails
+    path('soporte/', views.enviar_mensaje_soporte, name='soporte'),
+]
+
+```
+
+Para el envío de emails ha sido necesario incluir lo siguiente en el settings.py:
+```
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'deustronicdeusto@gmail.com'
+EMAIL_HOST_PASSWORD = 'fxmk npbh nghw ntgt'
+DEFAULT_FROM_EMAIL = 'deustronicdeusto@gmail.com'
+```
 # Implementaciones no operativas o con errores especificadas si las hubiera.
 
 
